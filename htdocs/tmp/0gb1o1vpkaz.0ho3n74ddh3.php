@@ -1,0 +1,14 @@
+<h2>What is an Organisation Profile Document (OPD)?</h2>
+<p>To tell us where to find your equipment, facilities, capabilities data, and the license etc. you’ll need to create an organisation profile document. This is a simple RDF file which describes your organisation and open access documents.</p>
+<p>The examples we use in this page are all “Turtle” format but RDF+XML is OK too.</p>
+<p>You will require a ‘URI’ to refer to your organisation. You can either use your own, or use one from learning-provider.data.ac.uk. If you use your own, please include a owl: same as linking it to the learning-provider.data.ac.uk URI for your organisation. In our examples we use &lt;http://id.example.ac.uk/&gt; as the URI for your organisation. </p>
+<p><small><strong>sidebar:</strong> American spelling of ‘organization’? Yes, we use the American spelling in the data structures. Sorry if that annoys people, but we decided to keep the ‘z’ in all the semantics rather than have a muddle of UK and US spelling which is certain to create errors.</small></p>
+<div class="code">
+<?php echo htmlentities(file_get_contents('examples/profile.ttl'));; ?>
+</div>
+<p>This isn’t everything that can go in a profile document, but it should be a summary of your organisation, not a complete data catalogue.</p>
+<p>We strongly recommend using a CC0 license (public domain dedication) for the organisational document. This makes it easy for 3rd parties to use it and combine many such documents without problems. It is very possible you won’t be willing to CC0 license your equipment data, but the profile document should not contain anything you don’t want widely and freely reused, so CC0 is appropriate for it.</p>
+
+<h2>How does autodiscovery work?</h2>
+
+<p>We offer three ways to get data.ac.uk to discover your profile document.</p><h3>Well-known</h3><p>This method uses a specific URL from your university homepage to link to the profile document; if your homepage is http://www.example.ac.uk/ then http://www.example.ac.uk/.well-known/openorg should serve (or redirect to) your profile document.</p><h3>&lt;link&gt; header</h3><p>This method of auto discovery uses a header on your organisation homepage header:<div class=\"code\">&lt;link rel=&rdquo;openorg&rdquo; href=&rdquo;http://www.example.ac.uk/profile.ttl&quot;&rdquo; /&gt;</div>Which links to the profile document.</p><h3>Can’t do either of these methods?</h3><p><strong>Don’t panic!</strong></p><p>We understand that the team providing equipment and facilities data for your organisation won’t always be working hand-in-glove with the team that run the homepage and main website. If the above methods are impractical for you, drop our admin a line at <a href=\"mailto:andy@data.ac.uk\">andy@data.ac.uk</a> and they will manually register the URL of your profile document.</p>
