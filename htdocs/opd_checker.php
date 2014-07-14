@@ -1,10 +1,9 @@
 <?php
+date_default_timezone_set( "Europe/London" );
 require_once( "../lib/arc2/ARC2.php" );
 require_once( "../lib/Graphite/Graphite.php" );
 require_once( "../lib/OPDLib/OrgProfileDocument.php" );
 require_once( "../lib/ResourceVerifier.php" );
-
-date_default_timezone_set( "Europe/London" );
 
 try {
     $f3=require('../f3/lib/base.php');

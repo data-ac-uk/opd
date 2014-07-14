@@ -1,10 +1,10 @@
 <?php
-
+date_default_timezone_set( "Europe/London" );
 $f3=require('../f3/lib/base.php');
 
 $f3->set('DEBUG',1);
-if ((float)PCRE_VERSION<7.9)
-	trigger_error('PCRE version is out of date');
+//if ((float)PCRE_VERSION<7.9)
+//	trigger_error('PCRE version is out of date');
 
 $f3->config('config.ini');
 
