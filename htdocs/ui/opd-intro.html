@@ -33,6 +33,13 @@
 .opd_option textarea {
 	white-space: pre;
 }
+
+.CodeMirror{
+	border: 1px solid #ccc;
+	text-align:left;
+	margin-bottom: 10px;
+}
+
 </style>
 
 
@@ -59,10 +66,19 @@
   <form method='post'>
     <h2>Option 3: Cut and paste an OPD into your browser</h2>
     <p>Nb. this assumes that the OPD is encoded as RDF Turtle.</p>
-    <textarea name='opd_paste' class='opd_input' rows='30' >
-    </textarea>
+    <textarea name='opd_paste' id='opd_paste' class='opd_input'rows='30' ></textarea>
     <input type='submit' value='Test OPD' />
   </form>
 </div>
+
+<script src="/lib/CodeMirror/lib/codemirror.js"></script>
+<script src="/lib/CodeMirror/mode/turtle/turtle.js"></script>
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("opd_paste"), {
+    mode: "text/turtle",
+    matchBrackets: true
+  });
+</script>
 
 

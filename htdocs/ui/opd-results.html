@@ -27,6 +27,32 @@ table.rv_data th {
 .opd_dataset {
 	padding-left: 20px;
 }
+
+.opd_option input[type='text'], .opd_option textarea {
+	margin-bottom: 5px;
+	width: 60%;
+	display: inline-block;
+}
+.opd_option input[type='text'] {
+	text-align: center;
+}
+.opd_option input[type='submit'] {
+	margin-bottom: 5px;
+	vertical-align: bottom;
+}
+.opd_option textarea {
+	white-space: pre;
+}
+
+.CodeMirror{
+	border: 1px solid #ccc;
+	text-align:left;
+	margin-bottom: 10px;
+}
+
 </style>
 
+
 {{@results | raw}}
+
+<include if="{{ 1 }}" href="opd-textarea.html" />
