@@ -1,0 +1,34 @@
+
+code {
+	white-space: pre;
+	font-family: monospace;
+}
+
+ul.bullet-list li {
+	list-style: disc;
+	margin-left: 3em;
+	margin-bottom: 0.5em;
+}
+
+ul.bullet-list,
+p {
+}	
+
+code {
+	background-color: #eee;
+}
+code.block {
+	display: block;
+	padding: 0.5em;
+	margin-bottom: 1em;
+}
+.opd-value {
+	font-weight: bold;
+}
+.opd-var {
+	font-style: italic;
+	background-color: #ff0;
+	padding: 3px;
+	border: dashed 1px #f90;
+	margin: 0px 1px 0px 1px;
+}

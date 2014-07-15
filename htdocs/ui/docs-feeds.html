@@ -1,0 +1,32 @@
+
+<p>An "feed" for an organisation is generally one of the following:</p>
+
+<ul class='bullet-list'>
+<li>Events related to the organisation.</li>
+<li>News items from and about the organisation (This does not include sites which provide an actual news service). eg. Vice Chancellor opens new building.</li>
+<li>Notices from the organsiation. eg. Building 23 will be closed on May 4th for essential maintenance.</li>
+</ul>
+<p>There may be other kinds of feed.</p>
+<p>iCalendar data is probably not going to be news or notices, but please still mark it as <span class='opd-value'>events</span> for easy discovery.</p>
+
+<h3>Prefixes</h3>
+
+<p>The examples on this page require the following prefixes to be defined at the top of your OPD:</p>
+
+<code class='block'>@prefix dcterms: &lt;http://purl.org/dc/terms/&gt;
+@prefix oo:      &lt;http://purl.org/openorg/&gt;</code>
+
+
+<h3>Example</h3>
+
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; a &lt;http://purl.org/xtypes/Document-<span class='opd-var'>FEED-TYPE</span>&gt;
+    oo:organization &lt;<span class='opd-var'>ORG-URI</span>&gt; ;
+    dcterms:subject &lt;http://purl.org/openorg/theme/<span class='opd-var'>THEME</span>&gt; .
+</code>
+
+<p><span class='opd-var'>FEED-TYPE</span> is one of: <span class='opd-value'>RSS</span> or <span class='opd-value'>Atom</span> or <span class='opd-value'>iCalendar</span></p>
+
+<p><span class='opd-var'>THEME</span> is one of: <span class='opd-value'>news</span> or <span class='opd-value'>events</span> or <span class='opd-value'>notices</span></p>
+
+
+

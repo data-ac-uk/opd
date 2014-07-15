@@ -1,0 +1,91 @@
+<p>This page documents patterns to use to describe social network accounts used by your organisation. In addition to linking to the account the foaf:accountName and foaf:accountServiceHomepage make the information more specific.</p>
+
+<p>If the social network is not listed below, you can still use the same pattern for any social network account.</p>
+
+<p>For the service homepage in these examples we've used the homepage from July 2014. </p>
+
+<h3>Prefixes</h3>
+
+<p>The examples on this page require the following prefixes to be defined at the top of your OPD:</p>
+
+<code class='block'>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt;.</code>
+
+
+<h3>Facebook</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;https://www.facebook.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;https://www.facebook.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;https://www.facebook.com/&gt; .</code>
+</code>
+
+
+<h3>Flickr</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;https://www.flickr.com/photos/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; .
+&lt;https://www.flickr.com/photos/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;https://www.flickr.com/&gt; .</code>
+
+
+<h3>Google+</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;https://plus.google.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; .
+&lt;https://plus.google.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;https://plus.google.com/&gt; .</code>
+
+
+<h3>Instagram</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://instagram.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; .
+&lt;http://instagram.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://instagram.com/&gt; .</code>
+
+
+<h3>LinkedIn</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://www.linkedin.com/company/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; .
+&lt;http://www.linkedin.com/company/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://www.linkedin.com/&gt; .</code>
+
+
+<h3>Pinterest</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://www.pinterest.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; .
+&lt;http://www.pinterest.com/<span class='opd-var'>ACCOUNT-NAME</span>/&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://www.pinterest.com/&gt; .</code>
+
+
+<h3>Twitter</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;https://twitter.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;https://twitter.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;https://twitter.com/&gt; .</code>
+
+
+<h3>vimeo</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://vimeo.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;http://vimeo.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://vimeo.com/&gt; .</code>
+
+
+<h3>VK</h3>
+<p>(russian language)</p>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://vk.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;http://vk.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://vk.com/&gt; .</code>
+
+
+<h3>Weibo</h3>
+<p>(chinese social network)</p>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;http://www.weibo.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;http://www.weibo.com/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;http://www.weibo.com/&gt; .</code>
+
+
+<h3>YouTube</h3>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:account &lt;https://www.youtube.com/user/<span class='opd-var'>ACCOUNT-NAME</span>&gt; .
+&lt;https://www.youtube.com/user/<span class='opd-var'>ACCOUNT-NAME</span>&gt; a foaf:OnlineAccount ;
+    foaf:accountName "<span class='opd-var'>ACCOUNT-NAME</span>" ;
+    foaf:accountServiceHomepage &lt;https://www.youtube.com/&gt; .</code>
