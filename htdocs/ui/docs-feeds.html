@@ -1,4 +1,6 @@
 
+<include href='docs-menu.html' />
+
 <p>An "feed" for an organisation is generally one of the following:</p>
 
 <ul class='bullet-list'>
@@ -21,12 +23,15 @@
 
 <code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; a &lt;http://purl.org/xtypes/Document-<span class='opd-var'>FEED-TYPE</span>&gt;
     oo:organization &lt;<span class='opd-var'>ORG-URI</span>&gt; ;
-    dcterms:subject &lt;http://purl.org/openorg/theme/<span class='opd-var'>THEME</span>&gt; .
+    dcterms:subject &lt;http://purl.org/openorg/theme/<span class='opd-var'>THEME</span>&gt; ;
+    dcterms:license &lt;<span class='opd-var'>http://creativecommons.org/publicdomain/zero/1.0/</span>&gt; .
 </code>
 
 <p><span class='opd-var'>FEED-TYPE</span> is one of: <span class='opd-value'>RSS</span> or <span class='opd-value'>Atom</span> or <span class='opd-value'>iCalendar</span></p>
 
 <p><span class='opd-var'>THEME</span> is one of: <span class='opd-value'>news</span> or <span class='opd-value'>events</span> or <span class='opd-value'>notices</span></p>
+
+<p>You can alter the license to use more restrictive licenses, but with feeds like this public domain is recommended. This doesn't mean that people won't credit you as the source of the data, but it removes the obligation for them to do so.</p>
 
 
 

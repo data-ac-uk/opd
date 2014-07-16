@@ -18,6 +18,21 @@ $f3->route('GET /docs/feeds',
 $f3->route('GET /docs/social',
 	function($f3) { basicPage( $f3, "OPD Documentation: Social Networks", "docs-social.html" ); }
 );
+$f3->route('GET /docs/auto',
+	function($f3) { basicPage( $f3, "OPD Documentation: Autodiscovery", "docs-auto.html" ); }
+);
+$f3->route('GET /docs/datasets',
+	function($f3) { basicPage( $f3, "OPD Documentation: Datasets", "docs-datasets.html" ); }
+);
+$f3->route('GET /workshops/getting_started',
+	function($f3) { basicPage( $f3, "Workshop: OPD Getting Started", "workshop-gettingstarted.html" ); }
+);
+$f3->route('GET /docs/core',
+	function($f3) { basicPage( $f3, "OPD Documentation: Core", "docs-core.html" ); }
+);
+$f3->route('GET /docs/key-pages',
+	function($f3) { basicPage( $f3, "OPD Documentation: Key Pages", "docs-key-pages.html" ); }
+);
 
 $f3->run();
 exit;

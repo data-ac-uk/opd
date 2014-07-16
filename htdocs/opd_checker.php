@@ -80,6 +80,10 @@ catch( Exception $e )
 
 $content []= "<p>OPD Loaded OK!</p>";
 
+#################### #################### ####################
+# CORE PROFILE
+#################### #################### ####################
+
 $content []= "<p>Organisation self-assigned URI is $opd->org</p>";
 
 $rv = new ResourceVerifier( "opd_verify.json" );
@@ -89,33 +93,52 @@ $content []= "<p>The following content was identified:</p>";
 $content []= "<h2>Core</h2>";
 
 $opd->graph->ns( "vcard", "http://www.w3.org/2006/vcard/ns#" );
+$opd->graph->ns( "xtypes", "http://purl.org/xtypes/");
 $content []= $rv->html_report( "core", $opd->org );
 
+
+
+
+#################### #################### ####################
+# DATASETS & FEEDS
+#################### #################### ####################
+
+# use verify for additional 
 $bits = array(
 	array( 
-		"name"=>"Facilities Dataset",
+		"name"=>"Facilities",
 		"subjects"=>array("http://purl.org/openorg/theme/facilities"),
-		"verify"=>array("dataset"),
+		"verify"=>array(),
 	),
 	array( 
-		"name"=>"Equipment Dataset",
+		"name"=>"Equipment",
 		"subjects"=>array("http://purl.org/openorg/theme/equipment"),
-		"verify"=>array("dataset"),
+		"verify"=>array(),
 	),
 	array( 
-		"name"=>"Members Dataset",
+		"name"=>"Members",
 		"subjects"=>array("http://purl.org/openorg/theme/members"),
-		"verify"=>array("dataset"),
+		"verify"=>array(),
 	),
 	array( 
-		"name"=>"Events Dataset",
+		"name"=>"Events",
 		"subjects"=>array("http://purl.org/openorg/theme/events"),
-		"verify"=>array("dataset"),
+		"verify"=>array(),
 	),
 	array( 
-		"name"=>"Places Dataset",
+		"name"=>"Places",
 		"subjects"=>array("http://purl.org/openorg/theme/places"),
-		"verify"=>array("dataset"),
+		"verify"=>array(),
+	),
+	array( 
+		"name"=>"News",
+		"subjects"=>array("http://purl.org/openorg/theme/news"),
+		"verify"=>array(),
+	),
+	array( 
+		"name"=>"Notices",
+		"subjects"=>array("http://purl.org/openorg/theme/notices"),
+		"verify"=>array(),
 	),
 );
 	
@@ -130,21 +153,64 @@ foreach( $bits as $bit )
 	$n = 1;
 	foreach( $datasets as $dataset )
 	{
-		$content []= "<div class='opd_dataset'>";
-		$content []= "<h3>".$bit["name"]." #$n</h3>";
-		$n++;
-		foreach( $bit["verify"] as $vsection )
+		if( $dataset->isType( "xtypes:Document-RSS","xtypes:Document-Atom", "xtypes:Document-iCalendar" ) )
 		{
-			$content []= $rv->html_report( $vsection, $dataset );
+			$content []= "<div class='opd_dataset'>";
+			$content []= "<h3>Feed: ".$bit["name"]." #$n</h3>";
+			$n++;
+			$content []= $rv->html_report( "feed", $dataset );
+			foreach( $bit["verify"] as $vsection )
+			{
+				$content []= $rv->html_report( $vsection, $dataset );
+			}
+			$content []= "</div>";
 		}
-		$content []= "</div>";
+		else
+		{
+			$content []= "<div class='opd_dataset'>";
+			$content []= "<h3>Dataset: ".$bit["name"]." #$n</h3>";
+			$content []= $rv->html_report( "dataset", $dataset );
+			$n++;
+			foreach( $bit["verify"] as $vsection )
+			{
+				$content []= $rv->html_report( $vsection, $dataset );
+			}
+			$content []= "</div>";
+		}
 	}
 }
+
+#################### #################### ####################
+# Social Media
+#################### #################### ####################
+
+$content []= "<h2>Social Media</h2>";
+foreach( $opd->org->all( "foaf:account" ) as $account )
+{
+	$content []= "<div class='opd_dataset'>";
+	$content []= "<h3>Account: '".$account->getLiteral("foaf:accountName")."'";
+	if ( $account->has( "foaf:accountServiceHomepage" ) )
+	{
+		$content []= " on ".$account->get( "foaf:accountServiceHomepage" )->link();
+	}
+
+	$content []= "</h3>";
+	$content []= $rv->html_report( "social", $account );
+	$content []= "</div>";
+}
+
+#################### #################### ####################
+# LINKING YOU
+#################### #################### ####################
+
 
 $opd->graph->ns( "lyou", "http://purl.org/linkingyou/" );
 $content []= "<h2>Linking-you</h2>";
 $content []= "<p>These terms link an organisation to web-pages organistations commonly have. See <a href='http://purl.org/linkingyou/'>http://purl.org/linkingyou/</a> for more information on these terms.</p>";
 $content []= $rv->html_report( "linking-you", $opd->org );
+
+
+
 
 
 

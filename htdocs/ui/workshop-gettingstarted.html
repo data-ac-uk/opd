@@ -1,0 +1,153 @@
+
+<h2>Introduction</h2>
+
+<p>This workshop is designed to get you started by creating an OPD for you organisation.</p>
+
+<p>We will be using an online tool to help validate your OPD, you can find it here: <a href="http://opd.data.ac.uk/checker">http://opd.data.ac.uk/checker</a></p>
+
+<p>OPD's can be any RDF format, but in this workshop we will be using the Turtle format, as its simple to learn and easy to edit by hand. More info: <a href="http://en.wikipedia.org/wiki/Turtle_(syntax)">http://en.wikipedia.org/wiki/Turtle_(syntax)</a>  
+
+<h2>My First OPD</h2>
+
+<p>If you open up the checker in a webbroser you should see Option 3. You can work on your OPD in the text box and click Test to test it.</p>
+
+<p>To make the OPD legible we should start it with some namespaces (Aliases to shorten the URLs) The following should be all that we need for this workshop</p>
+  
+<code class='block'>
+# defining prefixes makes our document easier to read an maintain
+
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
+@prefix oo:      &lt;http://purl.org/openorg/&gt;.
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt;.
+@prefix geo:     &lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;.
+@prefix skos:    &lt;http://www.w3.org/2004/02/skos/core#&gt;.
+@prefix org:     &lt;http://www.w3.org/ns/org#&gt;.
+@prefix xtypes:  &lt;http://purl.org/xtypes/&gt;.
+@prefix lyou:    &lt;http://purl.org/linkingyou/&gt;.
+@prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
+
+</code>
+
+<p>We now need to add some RDF describing the document, we need to descide an id for the organsation, in this example we are using http://id.example.ac.uk/, replace it for your own organsation's id.</p>
+
+<p>Add this to your OPD</p>
+
+<code class='block'> 
+# Describe this document and state a license
+
+&lt;&gt; a oo:OrganizationProfileDocument ;
+        dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
+        foaf:primaryTopic &lt;http://id.example.ac.uk/&gt; .
+
+</code>
+
+<p>Now we need to add some information to the OPD about the organsation. To get started we shall say:
+<ul class="bullet-list">
+	<li>That http://id.example.ac.uk/ is a formal organisation</li>
+	<li>That http://id.example.ac.uk/ has the prefered name "The University of Example"</li>
+</ul>
+</p>
+
+<code class='block'> 
+&lt;http://id.example.ac.uk/&gt;
+        a org:FormalOrganization ;
+        skos:prefLabel &quot;The University of Example&quot; .
+
+</code>
+
+<p>Hopfully you should have an OPD that looks like this:</p>
+
+<code class="block">
+# defining prefixes makes our document easier to read an maintain
+
+@prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
+@prefix oo:      &lt;http://purl.org/openorg/&gt;.
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt;.
+@prefix geo:     &lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;.
+@prefix skos:    &lt;http://www.w3.org/2004/02/skos/core#&gt;.
+@prefix org:     &lt;http://www.w3.org/ns/org#&gt;.
+@prefix xtypes:  &lt;http://purl.org/xtypes/&gt;.
+@prefix lyou:    &lt;http://purl.org/linkingyou/&gt;.
+@prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
+
+
+# Describe this document and state a license
+
+&lt;&gt; a oo:OrganizationProfileDocument ;
+        dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
+        foaf:primaryTopic &lt;http://id.example.ac.uk/&gt; .
+
+# Some information about the organisation
+
+&lt;http://id.example.ac.uk/&gt;
+        a org:FormalOrganization ;
+        skos:prefLabel &quot;The University of Example&quot; .
+       
+</code>
+
+<p>If you click test OPD you should should now see a results page that has OPD Loaded OK!, if not double check your OPD for any errors.</p>
+
+<h2>Adding more information</h2>
+
+<p>You can now extend your organisations information by adding more RDF, most of thease are optional but the  prefLabel, logo and sameAs to the learning-provider URI are strongly encouraged, as these allow to link the data to other datasets.</p>
+
+<code class='block'>
+# Some information about the organisation
+&lt;http://id.example.ac.uk/&gt;
+        a org:FormalOrganization ;
+        skos:prefLabel &quot;The University of Example&quot; ;
+        skos:hiddenLabel &quot;Example&quot; ;
+        skos:hiddenLabel &quot;Example U&quot; ;
+        vcard:sortLabel &quot;Example, University of&quot; ;
+     	foaf:phone &lt;tel:+441234567890&gt; ;
+     	foaf:mbox &lt;mailto:info@example.ac.uk&gt; ;
+        foaf:logo &lt;http://www.example.ac.uk/example-logo.png&gt; ;
+        foaf:homepage &lt;http://www.example.ac.uk/&gt; ;
+        owl:sameAs &lt;http://id.learning-provider.data.ac.uk/ukprn/12345678&gt; ;
+        owl:sameAs &lt;http://dbpedia.org/resource/University_of_Example&gt; .
+
+</code>
+
+<p>Note that each line except the last one ends with a ; and the last one ends with a .</p>
+<p>Check out the Core documentation for more information: <a href="http://opd.data.ac.uk/docs/core">http://opd.data.ac.uk/docs/core</a></p>
+
+<h2>Social Networks</h2>
+<p>Inorder to add social networks, first find the network account on our documentation page: <a href="/docs/social">http://opd.data.ac.uk/docs/social</a>
+</p>
+
+<p>Lets start with a twitter account, @exampleuni, first we start by adding the account to the organisation block by adding the following:</p>
+
+<code class='block'>foaf:account &lt;https://twitter.com/exampleuni&gt; .</code>
+
+<p>Then we add a new block of RDF describing that accoung:</p>
+
+<code class='block'>&lt;https://twitter.com/exampleuni&gt; a foaf:OnlineAccount ;
+		foaf:accountName &quot;exampleuni&quot; ;
+		foaf:accountServiceHomepage &lt;https://twitter.com/&gt; .
+</code>
+
+<p>Now test your OPD, a social networks section should now appear at the page</p>
+<p>Have ago at adding some other social media accounts use the documention to help you, <a href="/docs/social">http://opd.data.ac.uk/docs/social</a></p>
+
+<h2>RSS Feeds, Key Pages and beyond</h2>
+
+<p>Using the following documentation pages try and add more information to your OPD</p>
+<ul class="bullet-list">
+	<li>RSS Feeds: <a href="/docs/feeds" title="OPD Documentation: Feeds (RSS, iCal, Atom)">http://opd.data.ac.uk/docs/feeds</a></li>
+	<li>Key Pages: <a href="/docs/key-pages" title="OPD Documentation: Key Pages">http://opd.data.ac.uk/docs/key-pages</a></li>
+	<li>Datasets: <a href="/docs/datasets" title="OPD Documentation: Datasets">http://opd.data.ac.uk/docs/datasets</a></li>
+</ul>
+
+<h2>Autodiscovery </h2>
+<p>Now we have our finished OPD, we can try and get the autodiscovery working.</p>
+
+<p>For this to work you need to copy your opd somewhere that is web accessable, and have the ability to change the homepage of the organsiation (For this workshop you can use any web frontpage)</p>
+
+<p>Once your OPD is online, you can check it will work by using options 2 on the checker.</p>
+
+<p>If all that has worked follow the autodiscovery documentation and see you can get your OPD autodiscoverable <a href="/docs/auto" title="OPD Documentation: Autodiscovery">http://opd.data.ac.uk/docs/auto</a> </p>
+
+<hr/>
+<p>This workshop can be found here: <a href="/workshops/getting_started">http://opd.data.ac.uk/workshops/getting_started</a></p>
+
+

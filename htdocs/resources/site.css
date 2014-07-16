@@ -32,3 +32,25 @@ code.block {
 	border: dashed 1px #f90;
 	margin: 0px 1px 0px 1px;
 }
+.sub-menu {
+	border: solid 1px #193965;
+	padding: 0.5em;
+	margin-bottom: 1em;
+	display: inline-block;
+}
+.sub-menu ul {
+	display: inline-block;
+}
+.sub-menu li {
+	display: inline-block;
+	background-color: #ccc;
+	border-radius: 1em;
+	padding: 0.1em 0.5em;
+}
+.sub-menu li:hover {
+	background-color: #193965;
+}
+.sub-menu li:hover a {
+	text-decoration: none;
+	color: #fff;
+}

@@ -1,0 +1,21 @@
+<include href='docs-menu.html' />
+
+<p>This page documents the pattern to use to link to a dataset. You don't need to link to every open dataset, just ones that are useful for autodiscovery. If you have lots of datasets then link to a dataset cataglouge rather than list everything.</p>
+
+<h3>Prefixes</h3>
+
+<p>The examples on this page require the following prefixes to be defined at the top of your OPD:</p>
+
+<code class='block'>@prefix oo: &lt;http://xmlns.com/foaf/0.1/&gt;.
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .</code>
+
+<h3>Pattern</h3>
+
+<code class='block'>&lt;<span class='opd-var'>DATASET-URL</span>&gt; 
+    oo:organization &lt;<span class='opd-var'>ORG-URI</span>&gt; ;
+    oo:contact &lt;mailto:<span class='opd-var'>CONTACT-EMAIL</span>&gt; ;
+    oo:corrections &lt;mailto:<span class='opd-var'>CORRECTIONS-EMAIL</span>&gt; ;
+    dcterms:subject &lt;http://purl.org/openorg/theme/<span class='opd-var'>THEME</span>&gt; ;
+    dcterms:conformsTo &lt;<span class='opd-var'>CONFIRMS-URL</span>&gt; ;
+    dcterms:license &lt;<span class='opd-var'>LICENSE-URL</span>&gt; .</code>
+

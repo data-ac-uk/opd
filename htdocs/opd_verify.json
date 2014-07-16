@@ -1,6 +1,18 @@
 {
   "core": { 
     "terms": [
+      {
+        "term": "rdf:type",
+        "label": "Type",
+        "values": {
+  "org:FormalOrganization": "Formal Organisation (charity, business etc.)",
+  "aiiso:Institution": "An Academic Institution",
+  "foaf:Organization": "An Organisation (general)"
+        },
+        "render": "uri_values",
+        "expect": "resource",
+        "recommended": true
+      },
       { 
         "term": "skos:prefLabel",
         "label": "Preferred Label",
@@ -16,18 +28,6 @@
         "term": "rdfs:label",
         "label": "Label",
         "expect": "literal"
-      },
-      {
-        "term": "rdf:type",
-        "label": "Type",
-        "values": {
-  "org:FormalOrganization": "Formal Organisation (charity, business etc.)",
-  "aiiso:Institution": "An Academic Institution",
-  "foaf:Organization": "An Organisation (general)"
-        },
-        "render": "uri_values",
-        "expect": "resource",
-        "recommended": true
       },
       {
         "term": "foaf:homepage",
@@ -128,6 +128,61 @@
       }
     ]
   },
+
+
+  "feed": {
+    "terms": [
+      { 
+        "term": "rdf:type",
+        "label": "Type",
+        "render": "uri_values",
+        "expect": "resource",
+        "values": {
+"xtypes:Document-RSS": "RSS Feed",
+"xtypes:Document-Atom": "Atom Feed",
+"xtypes:Document-iCalendar": "iCalendar Feed"
+        },
+        "recommended": true
+      },
+      { 
+        "term": "oo:organization",
+        "label": "Organization URI",
+        "render": "uri",
+        "expect": "resource"
+      },
+      { 
+        "term": "oo:contact",
+        "label": "Contact",
+        "render": "pretty_link",
+        "expect": "resource",
+        "expect_scheme": [ "mailto","tel","http","https" ],
+        "recommended": false
+      },
+      { 
+        "term": "oo:corrections",
+        "label": "Corrections Contact",
+        "render": "pretty_link",
+        "expect": "resource",
+        "expect_scheme": [ "mailto","tel","http","https" ],
+        "recommended": false
+      },
+      { 
+        "term": "dcterms:license",
+        "label": "License",
+        "render": "uri_values",
+        "expect": "resource",
+        "values": { 
+"http://creativecommons.org/publicdomain/zero/1.0/": "CC0 - Public Domain Dedication",
+"http://opendatacommons.org/licenses/by/": "ODCA - Open Data Commons Attribution License",
+"http://www.nationalarchives.gov.uk/doc/open-government-licence/": "OGL - The (UK) Open Government License for Public Sector Information"
+        },
+        "recommended": true
+      }
+    ]
+  },
+
+
+
   "linking-you": { 
     "terms": [
       {
@@ -528,6 +583,50 @@
         "render": "link",
         "expect": "resource",
         "expect_scheme": [ "http", "https" ]
+      }
+    ]
+  },
+
+
+  "social": {
+    "terms": [
+      { 
+        "term": "rdf:type",
+        "label": "Type",
+        "render": "uri_values",
+        "expect": "resource",
+        "values": {
+"foaf:OnlineAccount": "Online Account"
+        },
+        "recommended": true
+      },
+      { 
+        "term": "foaf:accountName",
+        "label": "Account Name",
+        "expect": "literal",
+        "recommended": true
+      },
+      { 
+        "term": "foaf:accountServiceHomepage",
+        "label": "Account Service Homepage",
+        "render": "uri_values",
+        "expect": "resource",
+        "expect_scheme": [ "http","https" ],
+        "expect": "resource",
+        "values": { 
+"https://www.facebook.com/": "Facebook",
+"https://www.flickr.com/": "Flickr",
+"https://plus.google.com/": "Google+",
+"http://instagram.com/": "Instagram",
+"http://www.linkedin.com/": "LinkedIn",
+"http://www.pinterest.com/": "Pinterest",
+"https://twitter.com/": "Twitter",
+"http://vimeo.com/": "Vimeo",
+"http://vk.com/": "VK",
+"http://www.weibo.com/": "Weibo",
+"https://www.youtube.com/": "YouTube"
+        },
+        "recommended": true
       }
     ]
   }

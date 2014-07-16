@@ -1,0 +1,43 @@
+# defining prefixes makes our document easier to read an maintain
+
+@prefix foaf:    <http://xmlns.com/foaf/0.1/>.
+@prefix oo:      <http://purl.org/openorg/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix geo:     <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#>.
+@prefix org:     <http://www.w3.org/ns/org#>.
+@prefix xtypes:  <http://purl.org/xtypes/>.
+@prefix lyou:    <http://purl.org/linkingyou/>.
+@prefix vcard:   <http://www.w3.org/2006/vcard/ns#>.
+
+
+# Describe this document and state a license
+
+<> a oo:OrganizationProfileDocument ;
+        dcterms:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
+        foaf:primaryTopic <http://id.example.ac.uk/> .
+
+# Some information about the organisation
+<http://id.example.ac.uk/>
+        a org:FormalOrganization ;
+        skos:prefLabel "The University of Example" ;
+        skos:hiddenLabel "Example" ;
+        skos:hiddenLabel "Example U" ;
+        vcard:sortLabel "Example, University of" ;
+     	foaf:phone <tel:+441234567890> ;
+     	foaf:mbox <mailto:info@example.ac.uk> ;
+        foaf:logo <http://www.example.ac.uk/example-logo.png> ;
+        foaf:homepage <http://www.example.ac.uk/> ;
+        owl:sameAs <http://id.learning-provider.data.ac.uk/ukprn/12345678> ;
+        owl:sameAs <http://dbpedia.org/resource/University_of_Example> ;
+
+		foaf:account <https://twitter.com/exampleuni> ;
+		foaf:account <https://www.facebook.com/exampleuni> .
+
+<https://twitter.com/exampleuni> a foaf:OnlineAccount ;
+	       foaf:accountName "exampleuni" ;
+	       foaf:accountServiceHomepage <https://twitter.com/> .
+		   
+<https://www.facebook.com/exampleuni> a foaf:OnlineAccount ;
+    foaf:accountName "exampleuni" ;
+    foaf:accountServiceHomepage <https://www.facebook.com/> .		   
