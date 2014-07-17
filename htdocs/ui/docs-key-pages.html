@@ -1,0 +1,38 @@
+
+<include href='docs-menu.html' />
+
+<p>The Linking-You vocabulary allows you to explicitly state the key pages of your website. Accept for "homepage" for which we recommend using foaf:homepage as it's already very well established.</p>
+
+<p>Note that these terms link an organisation to a document, not a dataset.</p>
+
+<h3>Prefixes</h3>
+<code class='block'>@prefix oo: &lt;http://xmlns.com/foaf/0.1/&gt;.
+@prefix lyou: &lt;http://purl.org/linkingyou/&gt;.</code>
+
+<h3>Pattern</h3>
+
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; 
+    foaf:homepage &lt;<span class='opd-var'>URL</span>&gt; ;
+    lyou:about &lt;<span class='opd-var'>URL</span>&gt; ;
+    lyou:events &lt;<span class='opd-var'>URL</span>&gt; ;
+    lyou:conferences &lt;<span class='opd-var'>URL</span>&gt; ;
+    lyou:undergraduatae &lt;<span class='opd-var'>URL</span>&gt; ;
+    lyou:international-students &lt;<span class='opd-var'>URL</span>&gt; .
+</code>
+
+<h3>List of Linking You terms</h3>
+
+<p>For the full list of terms, please visit <a href='http://purl.org/linkingyou/'>http://purl.org/linkingyou/</a></p>
+
+<p>Just use the terms that are appropraate for your organisation, the are all optional, although homepage is recommended.</p>
+
+<h3>Example</h3>
+
+<code class='block'>&lt;http://www.example.ac.uk/#org&gt;
+    foaf:homepage &lt;http://www.example.ac.uk/&gt;
+    lyou:about &lt;http://www.example.ac.uk/about-us.html&gt;
+    lyou:events &lt;http://www.example.ac.uk/events/&gt;
+    lyou:conferences &lt;http://www.example.ac.uk/conference-and-hospitality/conferences.html&gt;
+    lyou:undergraduatae &lt;http://www.example.ac.uk/study-here.html&gt;
+    lyou:international-students &lt;http://www.example.ac.uk/students/international.html&gt; .
+</code>
