@@ -13,7 +13,7 @@
 
 <p>To make the OPD legible we should start it with some namespaces (Aliases to shorten the URLs) The following should be all that we need for this workshop</p>
   
-<code class='block'>
+<pre class='block'>
 # defining prefixes makes our document easier to read an maintain
 
 @prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
@@ -32,7 +32,7 @@
 
 <p>Add this to your OPD</p>
 
-<code class='block'> 
+<pre class='block'> 
 # Describe this document and state a license
 
 &lt;&gt; a oo:OrganizationProfileDocument ;
@@ -48,7 +48,7 @@
 </ul>
 </p>
 
-<code class='block'> 
+<pre class='block'> 
 &lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
         skos:prefLabel &quot;The University of Example&quot; .
@@ -57,7 +57,7 @@
 
 <p>Hopfully you should have an OPD that looks like this:</p>
 
-<code class="block">
+<pre class="block">
 # defining prefixes makes our document easier to read an maintain
 
 @prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
@@ -91,7 +91,7 @@
 
 <p>You can now extend your organisations information by adding more RDF, most of thease are optional but the  prefLabel, logo and sameAs to the learning-provider URI are strongly encouraged, as these allow to link the data to other datasets.</p>
 
-<code class='block'>
+<pre class='block'>
 # Some information about the organisation
 &lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
@@ -117,11 +117,11 @@
 
 <p>Lets start with a twitter account, @exampleuni, first we start by adding the account to the organisation block by adding the following:</p>
 
-<code class='block'>foaf:account &lt;https://twitter.com/exampleuni&gt; .</code>
+<pre class='block'>foaf:account &lt;https://twitter.com/exampleuni&gt; .</code>
 
 <p>Then we add a new block of RDF describing that accoung:</p>
 
-<code class='block'>&lt;https://twitter.com/exampleuni&gt; a foaf:OnlineAccount ;
+<pre class='block'>&lt;https://twitter.com/exampleuni&gt; a foaf:OnlineAccount ;
 		foaf:accountName &quot;exampleuni&quot; ;
 		foaf:accountServiceHomepage &lt;https://twitter.com/&gt; .
 </code>
