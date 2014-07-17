@@ -3,7 +3,7 @@
   <form method='post'>
     <h2>Edit your OPD</h2>
     <p>Nb. this assumes that the OPD is encoded as RDF Turtle.</p>
-    <textarea name='opd_paste' id='opd_paste' class='opd_input' rows='30' autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" >{{ echo @opd_paste; }}</textarea>
+    <textarea name='opd_paste' id='opd_paste' class='opd_input' rows='30' autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" >{{ @_POST['opd_paste']; }}</textarea>
     <input type='submit' value='Test OPD' />
   </form>
 </div>

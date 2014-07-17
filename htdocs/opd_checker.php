@@ -213,15 +213,6 @@ $content []= $rv->html_report( "linking-you", $opd->org );
 
 
 
-
-
-$content []= <<<END
-	
-
-
-END;
-
-
 $f3->set('results', join( "", $content ) );
 serve_results();
 

@@ -59,4 +59,4 @@ table{
 
 {{@results | raw}}
 
-<include if="{{ 1 }}" href="opd-textarea.html" />
+<include if="{{ isset(@_POST['opd_paste']) }}" href="opd-textarea.html" />
