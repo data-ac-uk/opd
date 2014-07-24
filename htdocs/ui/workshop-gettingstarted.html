@@ -9,13 +9,12 @@
 
 <h2>My First OPD</h2>
 
-<p>If you open up the checker in a webbroser you should see Option 3. You can work on your OPD in the text box and click Test to test it.</p>
+<p>If you open up the checker in a web browser you should see Option 3. You can work on your OPD in the text box and click Test to test it.</p>
 
 <p>To make the OPD legible we should start it with some namespaces (Aliases to shorten the URLs) The following should be all that we need for this workshop</p>
   
-<pre class='block'>
+<pre class='code'>
 # defining prefixes makes our document easier to read an maintain
-
 @prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
 @prefix oo:      &lt;http://purl.org/openorg/&gt;.
 @prefix dcterms: &lt;http://purl.org/dc/terms/&gt;.
@@ -25,21 +24,20 @@
 @prefix xtypes:  &lt;http://purl.org/xtypes/&gt;.
 @prefix lyou:    &lt;http://purl.org/linkingyou/&gt;.
 @prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
+</pre>
 
-</code>
+<p>One thing you'll need to do is assign a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> for your organisation. This looks like a web address but instead of indicating a document it indicates your organisation. <strong>DO NOT USE YOUR HOMEPAGE URL!</strong> Otherwise computers will think [your-university]=[your-university-homepage] and therefore your university is in HTML format and has 19 images. If in doubt you can use the URI from <a href='http://learning-provider.data.ac.uk/'>learning-provider.data.ac.uk</a>.</p>
 
-<p>We now need to add some RDF describing the document, we need to descide an id for the organsation, in this example we are using http://id.example.ac.uk/, replace it for your own organsation's id.</p>
+<p>We now need to add some RDF describing the document, we need to descide an id for the organsation, in this example we are using http://id.example.ac.uk/, replace it for your own organsation's uri. </p>
 
 <p>Add this to your OPD</p>
 
-<pre class='block'> 
+<pre class='code'>
 # Describe this document and state a license
-
 &lt;&gt; a oo:OrganizationProfileDocument ;
         dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
         foaf:primaryTopic &lt;http://id.example.ac.uk/&gt; .
-
-</code>
+</pre>
 
 <p>Now we need to add some information to the OPD about the organsation. To get started we shall say:
 <ul class="bullet-list">
@@ -48,18 +46,16 @@
 </ul>
 </p>
 
-<pre class='block'> 
+<pre class='code'>
 &lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
         skos:prefLabel &quot;The University of Example&quot; .
-
-</code>
+</pre>
 
 <p>Hopfully you should have an OPD that looks like this:</p>
 
-<pre class="block">
+<pre class="code">
 # defining prefixes makes our document easier to read an maintain
-
 @prefix foaf:    &lt;http://xmlns.com/foaf/0.1/&gt;.
 @prefix oo:      &lt;http://purl.org/openorg/&gt;.
 @prefix dcterms: &lt;http://purl.org/dc/terms/&gt;.
@@ -70,20 +66,16 @@
 @prefix lyou:    &lt;http://purl.org/linkingyou/&gt;.
 @prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
 
-
 # Describe this document and state a license
-
 &lt;&gt; a oo:OrganizationProfileDocument ;
         dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
         foaf:primaryTopic &lt;http://id.example.ac.uk/&gt; .
 
 # Some information about the organisation
-
 &lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
         skos:prefLabel &quot;The University of Example&quot; .
-       
-</code>
+</pre>
 
 <p>If you click test OPD you should should now see a results page that has OPD Loaded OK!, if not double check your OPD for any errors.</p>
 
@@ -91,7 +83,7 @@
 
 <p>You can now extend your organisations information by adding more RDF, most of thease are optional but the  prefLabel, logo and sameAs to the learning-provider URI are strongly encouraged, as these allow to link the data to other datasets.</p>
 
-<pre class='block'>
+<pre class='code'>
 # Some information about the organisation
 &lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
@@ -105,8 +97,7 @@
         foaf:homepage &lt;http://www.example.ac.uk/&gt; ;
         owl:sameAs &lt;http://id.learning-provider.data.ac.uk/ukprn/12345678&gt; ;
         owl:sameAs &lt;http://dbpedia.org/resource/University_of_Example&gt; .
-
-</code>
+</pre>
 
 <p>Note that each line except the last one ends with a ; and the last one ends with a .</p>
 <p>Check out the Core documentation for more information: <a href="/docs/core">http://opd.data.ac.uk/docs/core</a></p>
@@ -117,14 +108,15 @@
 
 <p>Lets start with a twitter account, @exampleuni, first we start by adding the account to the organisation block by adding the following:</p>
 
-<pre class='block'>foaf:account &lt;https://twitter.com/exampleuni&gt; .</code>
+<pre class='code'>foaf:account &lt;https://twitter.com/exampleuni&gt; .</pre>
 
 <p>Then we add a new block of RDF describing that accoung:</p>
 
-<pre class='block'>&lt;https://twitter.com/exampleuni&gt; a foaf:OnlineAccount ;
-		foaf:accountName &quot;exampleuni&quot; ;
-		foaf:accountServiceHomepage &lt;https://twitter.com/&gt; .
-</code>
+<pre class='code'>
+&lt;https://twitter.com/exampleuni&gt; a foaf:OnlineAccount ;
+	foaf:accountName &quot;exampleuni&quot; ;
+	foaf:accountServiceHomepage &lt;https://twitter.com/&gt; .
+</pre>
 
 <p>Now test your OPD, a social networks section should now appear at the page</p>
 <p>Have ago at adding some other social media accounts use the documention to help you, <a href="/docs/social">http://opd.data.ac.uk/docs/social</a></p>
