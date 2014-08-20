@@ -1,0 +1,128 @@
+#!/usr/bin/php
+<?php
+
+$PWD = dirname(__DIR__);
+
+require_once( "{$PWD}/lib/arc2/ARC2.php" );
+require_once( "{$PWD}/lib/Graphite/Graphite.php" );
+
+require_once( "{$PWD}/lib/OPDLib/OrgProfileDocument.php" );
+
+
+$opdlist = json_decode(file_get_contents("http://observatory.data.ac.uk/data/opds/latest.json"));
+
+$seenopds = array();
+
+foreach($opdlist as $opdurl){
+	
+	if(in_array($opdurl, $seenopds))
+		continue;
+
+	echo $opdurl."\n";
+	try{ 
+		$topd = @new OrgProfileDocument( $opdurl , 'url');
+	}
+	catch( OPD_Discover_Exception $e )
+	{
+		continue;
+	}
+	catch( OPD_Load_Exception $e )
+	{
+		continue;
+	}
+	catch( OPD_Parse_Exception $e )
+	{
+	    continue;
+	}
+	catch( Exception $e )
+	{
+		continue;
+	}
+	$graph = $topd->graph;
+	
+	$orgin['org_uri'] = $primaryTopic = (string)$topd->org;
+	$orgin['org_id'] = md5($orgin['org_uri']);
+	
+	$sameas = $graph->resource( $primaryTopic )->all( "http://www.w3.org/2002/07/owl#sameAs" );	
+	$uris = array();
+	foreach($sameas as $same){
+		$uri = parse_url($same);
+		$uri['uri'] = (string)$same;
+		$uris[$uri['host']] = $uri;
+	}
+	
+
+	
+
+	$orgin['org_name'] = $graph->resource( $primaryTopic )->getString('foaf:name');
+	if(!strlen($orgin['org_name']))
+		$orgin['org_name'] = $graph->resource( $primaryTopic )->getString('skos:prefLabel');
+	
+	$orgin['org_sort'] = misc_order_txt($orgin['org_name']);
+	
+	
+	$orgin['org_url'] = $graph->resource( $primaryTopic )->getString('foaf:homepage');
+	$orgin['org_logo'] = $graph->resource( $primaryTopic )->getString('foaf:logo');
+	
+	$linfo = _opd_get($orgin['org_logo'],$opdurl);
+	if($linfo['http_code']!=200){
+		$orgin['org_logo'] = "";
+	}
+
+
+	$dataset[$orgin['org_id']] = $orgin;
+	$seenopds[] = $opdurl;
+
+
+	//exit();
+
+}
+
+
+usort($dataset, "_array_sort_key");
+$newkeys = array();
+foreach($dataset as $d){
+	$newkeys[$d['org_id']] = $d;
+}
+
+
+file_put_contents("{$PWD}/var/autoopds.json",json_encode($newkeys));
+
+
+function _array_sort_key($a, $b)
+{
+    return strcmp($a['org_sort'], $b['org_sort']);
+}
+
+
+
+function _opd_get($url,$base){
+		
+		$s = curl_init();
+
+		curl_setopt($s,CURLOPT_URL,$url);
+		curl_setopt($s,CURLOPT_RETURNTRANSFER,true);
+		curl_setopt($s,CURLOPT_FOLLOWLOCATION,true);
+		curl_setopt($s,CURLOPT_USERAGENT,'OPDFinder (http://opd.data.ac.uk/)');
+		curl_setopt($s,CURLOPT_REFERER,$base);
+
+		curl_exec($s);
+		
+		$info = curl_getinfo($s);
+
+		curl_close($s);
+		return $info;
+	}	
+	function misc_order_txt($txt){
+		
+		foreach(array('The University of ','University of ','The ') as $k){
+			$l = strlen($k);
+			if(strcasecmp(substr($txt,0,$l),$k)==0){
+				$txt = substr($txt,$l).", ".substr($txt,0,$l);
+			}
+		}
+		return $txt;
+	}
+
+
+?>
