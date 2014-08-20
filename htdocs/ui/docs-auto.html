@@ -4,8 +4,29 @@
 
 <p>This mechanism lets someone (or software) find your profile document from your homepage.</p>
 
-<p>This has a couple of benefits. The obvious benefit is that your data can be easily discovered and therefore is more useful. A more subtle benefit is that by providing a link from the homepage to the OPD and from the OPD to your datasets it indicates that these are authoratative from your organisation. Otherwise there would be no way to distinguish official data from other data, eg. an undergrad project may also be placing data on your website and computers are dumb and can't tell the difference.</p>
+
+<h3>Benefits</h3>
+<ul class="bullet-list">
+	<li>Your data can be easily discovered and therefore is more useful</li>
+	<li>No manual input required</li>
+	<li>By providing a link from the homepage to the OPD, and from the OPD to your datasets, it indicates that these are authoritative from your organisation otherwise there would be no way to distinguish official data from other data</li>
+</ul>
 
 <h2>How does autodiscovery work?</h2>
 
-<p>We offer three ways to get data.ac.uk to discover your profile document.</p><h3>Well-known</h3><p>This method uses a specific URL from your university homepage to link to the profile document; if your homepage is http://www.example.ac.uk/ then http://www.example.ac.uk/.well-known/openorg should serve (or redirect to) your profile document.</p><h3>&lt;link&gt; header</h3><p>This method of auto discovery uses a header on your organisation homepage header:<div class=\"code\">&lt;link rel=&rdquo;openorg&rdquo; href=&rdquo;http://www.example.ac.uk/profile.ttl&quot;&rdquo; /&gt;</div>Which links to the profile document.</p><h3>Can’t do either of these methods?</h3><p><strong>Don’t panic!</strong></p><p>We understand that the team providing equipment and facilities data for your organisation won’t always be working hand-in-glove with the team that run the homepage and main website. If the above methods are impractical for you, drop our admin a line at <a href=\"mailto:andy@data.ac.uk\">andy@data.ac.uk</a> and they will manually register the URL of your profile document.</p>
+<p>We offer two ways to get data.ac.uk to discover your profile document.</p>
+
+<h3>1. &lt;link&gt; header</h3>
+
+<p>This method of auto discovery uses a header on your organisation homepage header:
+<code class="code block">&lt;link rel=&quot;openorg&quot; href=&quot;http://www.example.ac.uk/profile.ttl&quot; /&gt;</code>
+Which links to the profile document.</p>
+
+<h3>2. Well-known</h3>
+
+<p>This method uses a specific URL from your university homepage to link to the profile document; if your homepage is http://www.example.ac.uk then http://www.example.ac.uk/well-known/openorg should serve (or redirect to) your profile document.</p>
+
+
+<h3>Can’t do either of these methods?</h3>
+
+<p>We understand that the team providing equipment and facilities data for your organisation won’t always be working hand-in-glove with the team that run the homepage and main website. If the above methods are impractical for you, drop our admin a line at andy@data.ac.uk and they will manually register the URL of your profile document.</p>

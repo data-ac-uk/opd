@@ -27,8 +27,8 @@ code.block {
 }
 .opd-var {
 	font-style: italic;
-	background-color: #ff0;
-	padding: 3px;
+	background-color: rgba(255,255,0,0.5);
+	padding: 2px;
 	border: dashed 1px #f90;
 	margin: 0px 1px 0px 1px;
 }
@@ -53,4 +53,17 @@ code.block {
 .sub-menu li:hover a {
 	text-decoration: none;
 	color: #fff;
+}
+
+.datasets{
+	text-align: center;
+}
+.datasets li{
+	margin: 4px;
+	display: inline-block;
+}
+
+.datasets li img {
+	max-height: 40px;
+	max-width: 150px;
 }

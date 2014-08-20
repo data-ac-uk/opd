@@ -1,0 +1,30 @@
+<include href='docs-menu.html' />
+
+<p>This page descrives how you would add physical locations of your organisation to your OPD</p>
+
+<h3>Prefixes</h3>
+
+<p>The examples on this page require the following prefixes to be defined at the top of your OPD:</p>
+
+<code class='block'>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt;.
+@prefix geo:     &lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;.</code>
+
+
+<h3>Physical Location</h3>
+
+<p>If you want to descibe a physical location (eg long/lat) of your organisation you can do so using the foaf:based_near predicate. If you want to explicity express a location using longitude and latitude you need to creat a point object, in this example give this point the URI ORG-URI#based_near_point (eg http://id.example.ac.uk/#based_near_point)</p>
+
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:based_near &lt;<span class='opd-var'>ORG-URI#based_near_point</span>&gt; .
+&lt;<span class='opd-var'>ORG-URI#based_near_point</span>&gt;  a &lt;geo:Point&gt; ;
+	&lt;geo:lat&gt; <span class='opd-var'>50.935557</span> ;
+	&lt;geo:long&gt; <span class='opd-var'>-1.396011</span> .
+</code>
+
+<p>If you don't want to descibe the specific location but instead descibe a locallity (eg a Post Code or City) you can use another providers dataset. Below are some example where you don't need to provide the location of the object as you are using accessable an URI, our OPD reader will go off and fetch the location information from the resorce.</p>
+
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:based_near &lt;http://data.ordnancesurvey.co.uk/doc/postcodeunit/<span class='opd-var'>SO172LG</span>&gt; .
+</code>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:based_near &lt;http://data.ordnancesurvey.co.uk/id/<span class='opd-var'>7000000000037256</span>&gt; . #7000000000037256 = Southampton
+</code>
+<code class='block'>&lt;<span class='opd-var'>ORG-URI</span>&gt; foaf:based_near &lt;http://dbpedia.org/resource/<span class='opd-var'>Southampton</span>&gt; . #Any wikipedia page with a location
+</code>

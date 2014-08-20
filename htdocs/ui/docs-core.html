@@ -13,11 +13,11 @@
 <li>Other Stuff</li>
 </ol>
 
-<h3>Organisation URI</h3>
+<h3><a name="org_uri"></a>Organisation URI</h3>
 
 <p>One thing you'll need to do is assign a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> for your organisation. This looks like a web address but instead of indicating a document it indicates your organisation. <strong>DO NOT USE YOUR HOMEPAGE URL!</strong> Otherwise computers will think [your-university]=[your-university-homepage] and therefore your university is in HTML format and has 19 images. If in doubt you can use the URI from <a href='http://learning-provider.data.ac.uk/'>learning-provider.data.ac.uk</a>.</p>
 
-<h3>Prefixes</h3>
+<h3><a name="prefixes"></a>Prefixes</h3>
 
 <p>The prefixes at the top help keep the document more readable by defining short aliases for the "namespaces" of terms used in the documents. You can add more. If you want to be really lazy, <a href='http://prefix.cc'>prefix.cc</a> is a great resource, and can even provide the 
 <a href='http://prefix.cc/owl,foaf,oo,dcterms,geo,skos,org,xtypes,lyou,vcard.ttl'>exact syntax you need for turtle documents</a>.</p>
@@ -34,7 +34,7 @@
 @prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
 </code>
 
-<h3>Document Description</h3>
+<h3><a name="docdesc"></a>Document Description</h3>
 <p>This block just describes the document itself, stating what it is, what license it is provided under. We strongly recommend <a href='http://creativecommons.org/publicdomain/zero/1.0/'>CC0</a> as this allows it to be freely used by third parties with no obligations placed on them.</p> 
 
 <code class='block'> &lt;&gt; a oo:OrganizationProfileDocument ;
@@ -42,7 +42,7 @@
         foaf:primaryTopic &lt;<span class='opd-var'>ORG-URI</span>&gt; .
 </code>
 
-<h3>Organisation Description</h3>
+<h3><a name="orgdesc"></a>Organisation Description</h3>
 
 <code class='block'>&lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
@@ -59,8 +59,12 @@
 </code>
 
 
-<h3>Example</h3>
+<h3><a name="example"></a>Example</h3>
 
 <code class='block'> 
 {{ htmlspecialchars(file_get_contents( "examples/core.ttl" )) }}
 </code>
+
+<h3>Notes</h3>
+
+<p><strong>Please Note:<strong> It is assumed that logos will be displayed on a white background, so if your logo is white supply a background for it.</p>
