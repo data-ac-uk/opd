@@ -3,6 +3,9 @@ date_default_timezone_set( "Europe/London" );
 $f3=require('../f3/lib/base.php');
 
 $f3->set('DEBUG',1);
+
+$f3->set('AUTOLOAD',"app/");
+
 //if ((float)PCRE_VERSION<7.9)
 //	trigger_error('PCRE version is out of date');
 
@@ -16,6 +19,12 @@ $f3->route('GET /',
 		basicPage( $f3, "Organisation Profile Documents", "welcome.html" ); 
 	}
 );
+
+
+$f3->route('GET	/org/@id/@name.html', 'org->getPage' );
+$f3->route('GET	/org/@id/@name.logo', 'org->getLogo' );
+
+
 
 $f3->route('GET /docs/feeds',
 	function($f3) { basicPage( $f3, "Documentation: Feeds (RSS, iCal, Atom)", "docs-feeds.html" ); }
@@ -41,6 +50,16 @@ $f3->route('GET /docs/local',
 $f3->route('GET /docs/key-pages',
 	function($f3) { basicPage( $f3, " Documentation: Key Pages", "docs-key-pages.html" ); }
 );
+
+
+$f3->route('GET /data/autoopds.json',
+	function($f3) { 
+		header('Content-type: application/json');
+		readfile('../var/autoopds.json');
+		exit();
+	}	
+);
+
 
 $f3->run();
 exit;

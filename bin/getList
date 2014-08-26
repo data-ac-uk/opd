@@ -13,6 +13,11 @@ $opdlist = json_decode(file_get_contents("http://observatory.data.ac.uk/data/opd
 
 $seenopds = array();
 
+if(!file_exists("{$PWD}/var/orgs/")){
+	mkdir("{$PWD}/var/orgs/",0777,true);
+}
+	
+
 foreach($opdlist as $opdurl){
 	
 	if(in_array($opdurl, $seenopds))
@@ -40,6 +45,8 @@ foreach($opdlist as $opdurl){
 	}
 	$graph = $topd->graph;
 	
+	$orgin = array();
+	
 	$orgin['org_uri'] = $primaryTopic = (string)$topd->org;
 	$orgin['org_id'] = md5($orgin['org_uri']);
 	
@@ -60,6 +67,8 @@ foreach($opdlist as $opdurl){
 	
 	$orgin['org_sort'] = misc_order_txt($orgin['org_name']);
 	
+	$orgin['org_url_name'] = misc_url_name($orgin['org_name']);
+	
 	
 	$orgin['org_url'] = $graph->resource( $primaryTopic )->getString('foaf:homepage');
 	$orgin['org_logo'] = $graph->resource( $primaryTopic )->getString('foaf:logo');
@@ -70,10 +79,19 @@ foreach($opdlist as $opdurl){
 	}
 
 
+	$orgin['opd_url'] = $opdurl;
+	$orgin['opd_crawled'] = date("c");
+
 	$dataset[$orgin['org_id']] = $orgin;
 	$seenopds[] = $opdurl;
 
+	if(!file_exists("{$PWD}/var/orgs/{$orgin['org_id']}")){
+		mkdir("{$PWD}/var/orgs/{$orgin['org_id']}",0777,true);
+	}
 
+	file_put_contents("{$PWD}/var/orgs/{$orgin['org_id']}/org.json",json_encode($orgin));
+	file_put_contents("{$PWD}/var/orgs/{$orgin['org_id']}/org.ttl",$graph->serialize( 'Turtle' ));
+	
 	//exit();
 
 }
@@ -122,6 +140,15 @@ function _opd_get($url,$base){
 			}
 		}
 		return $txt;
+	}
+	function misc_url_name($txt){
+		$txt = strtolower($txt);
+		$rep = array(
+			"/[\s]/" => "_",
+			"/[^\_a-z0-9]/" => ""
+ 		);
+
+		return preg_replace( array_keys($rep), array_values($rep) ,$txt );
 	}
 
 
