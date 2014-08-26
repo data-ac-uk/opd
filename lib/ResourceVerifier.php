@@ -169,7 +169,7 @@ function location_find($loc){
 	
 	require_once("../lib/phpLocation/phpLocation.php");
 	
-	$location = array("loc_uri"=>(string)$loc);
+	$location = array("	loc_uri"=>(string)$loc);
 	if( $loc->has( "geo:lat" ) )
 	{
 		$location["loc_lat"] = $loc->getLiteral( "geo:lat" );
@@ -181,12 +181,13 @@ function location_find($loc){
 		$location["loc_northing"] = (int)$loc->getLiteral( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing" );
 	}
 	
+	$pos = new phpLocation();
+	$pos->lat = $location["loc_lat"];
+	$pos->lon = $location["loc_long"];
+	$pos->toGrid();
+	
 	if((isset($location["loc_lat"]) && isset($location["loc_long"])) && ( !isset($location["loc_easting"]) || !isset($location["loc_northing"]) )){
 		
-		$pos = new phpLocation();
-		$pos->lat = $location["loc_lat"];
-		$pos->lon = $location["loc_long"];
-		$pos->toGrid();
 		$location["loc_easting"] = (int)$pos->east;
 		$location["loc_northing"] = (int)$pos->north;
 	}
