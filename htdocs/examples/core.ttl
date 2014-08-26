@@ -1,4 +1,4 @@
-# defining prefixes makes our document easier to read an maintain
+# Defining prefixes makes your document easier to read and maintain
 
 @prefix owl:     <http://www.w3.org/2002/07/owl#>.
 @prefix foaf:    <http://xmlns.com/foaf/0.1/>.
@@ -17,8 +17,8 @@
         dcterms:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
         foaf:primaryTopic <http://id.example.ac.uk/> .
 
-# Some information about the organisation, most of this is optional but the
-# prefLabel, logo and sameAs to the learning-provider URI is strongly encouraged.
+# Some information about the organisation, most of this is optional but the prefLabel, logo and 
+# sameAs to the learning-provider URI is strongly encouraged.
 
 <http://id.example.ac.uk/>
         a org:FormalOrganization ;

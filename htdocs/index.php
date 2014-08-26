@@ -42,7 +42,7 @@ $f3->route('GET /workshops/getting_started',
 	function($f3) { basicPage( $f3, "Workshop: Getting Started", "workshop-gettingstarted.html" ); }
 );
 $f3->route('GET /docs/core',
-	function($f3) { basicPage( $f3, "Documentation: Core", "docs-core.html" ); }
+	function($f3) { basicPage( $f3, "Documentation: Basic Structure", "docs-core.html" ); }
 );
 $f3->route('GET /docs/local',
 	function($f3) { basicPage( $f3, "Documentation: Locations", "docs-local.html" ); }

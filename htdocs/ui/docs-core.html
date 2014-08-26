@@ -1,25 +1,24 @@
 <include href='docs-menu.html' />
 
-<p>This page describes the core of an OPD document.</p>
-
-<p>An OPD Document describes an organisation as machine-readable information. It's RDF data and usually encoded as an <a href='http://www.w3.org/TR/turtle/'>Turtle Document</a>. Don't panic, it's not hard to get started and there's a <a href='/checker'>checker tool</a> on this site to check it's valid and show you what it understood you to mean -- that can help you spot a logical error.</p>
+<p>This page describes the core of an OPD document. An OPD Document describes an organisation as machine-readable information. It consists of RDF data and is usually encoded as a <a href='http://www.w3.org/TR/turtle/'>Turtle Document</a>. It is simple to get started and there's a <a href='/checker'>checker tool</a> on this site to check it is valid and show you what it understood you to mean.</p>
 
 <h3>Basic Structure</h3>
 
 <ol style='list-style: ordered;margin-left:3em;margin-bottom:1em'>
+<li>Organisation URI</li>
 <li>Prefixes</li>
 <li>Document Description</li>
 <li>Organisation Description</li>
-<li>Other Stuff</li>
+<li>OPD example</li>
 </ol>
 
-<h3><a name="org_uri"></a>Organisation URI</h3>
+<h3><a name="org_uri"></a>1. Organisation URI</h3>
 
-<p>One thing you'll need to do is assign a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> for your organisation. This looks like a web address but instead of indicating a document it indicates your organisation. <strong>DO NOT USE YOUR HOMEPAGE URL!</strong> Otherwise computers will think [your-university]=[your-university-homepage] and therefore your university is in HTML format and has 19 images. If in doubt you can use the URI from <a href='http://learning-provider.data.ac.uk/'>learning-provider.data.ac.uk</a>.</p>
+<p>You will need to assign a <a href='http://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> for your organisation. This looks like a web address but instead of indicating a document it indicates your organisation. <strong>DO NOT USE YOUR HOMEPAGE URL.</strong>  If in doubt you can use the URI from <a href='http://learning-provider.data.ac.uk/'>learning-provider.data.ac.uk</a>.</p>
 
-<h3><a name="prefixes"></a>Prefixes</h3>
+<h3><a name="prefixes"></a>2. Prefixes</h3>
 
-<p>The prefixes at the top help keep the document more readable by defining short aliases for the "namespaces" of terms used in the documents. You can add more. If you want to be really lazy, <a href='http://prefix.cc'>prefix.cc</a> is a great resource, and can even provide the 
+<p>The prefixes at the top help keep the document more readable by defining short aliases for the "namespaces" of terms used in the documents. <a href='http://prefix.cc'>prefix.cc</a> is a great resource and can even provide the 
 <a href='http://prefix.cc/owl,foaf,oo,dcterms,geo,skos,org,xtypes,lyou,vcard.ttl'>exact syntax you need for turtle documents</a>.</p>
 
 <code class='block'>@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt;.
@@ -34,15 +33,15 @@
 @prefix vcard:   &lt;http://www.w3.org/2006/vcard/ns#&gt;.
 </code>
 
-<h3><a name="docdesc"></a>Document Description</h3>
-<p>This block just describes the document itself, stating what it is, what license it is provided under. We strongly recommend <a href='http://creativecommons.org/publicdomain/zero/1.0/'>CC0</a> as this allows it to be freely used by third parties with no obligations placed on them.</p> 
+<h3><a name="docdesc"></a>3. Document Description</h3>
+<p>This block just describes the document itself, stating what it is and what license it is provided under. We strongly recommend <a href='http://creativecommons.org/publicdomain/zero/1.0/'>CC0</a> as this allows it to be freely used by third parties with no obligations placed on them.</p> 
 
 <code class='block'> &lt;&gt; a oo:OrganizationProfileDocument ;
         dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; ;
         foaf:primaryTopic &lt;<span class='opd-var'>ORG-URI</span>&gt; .
 </code>
 
-<h3><a name="orgdesc"></a>Organisation Description</h3>
+<h3><a name="orgdesc"></a>4. Organisation Description</h3>
 
 <code class='block'>&lt;http://id.example.ac.uk/&gt;
         a org:FormalOrganization ;
@@ -59,7 +58,7 @@
 </code>
 
 
-<h3><a name="example"></a>Example</h3>
+<h3><a name="example"></a>5. OPD Example</h3>
 
 <code class='block'> 
 {{ htmlspecialchars(file_get_contents( "examples/core.ttl" )) }}
