@@ -68,12 +68,7 @@
   },
   "dataset": {
     "terms": [
-      { 
-        "term": "oo:organization",
-        "label": "Organization URI",
-        "render": "uri",
-        "expect": "resource"
-      },
+      
       { 
         "term": "oo:contact",
         "label": "Contact",

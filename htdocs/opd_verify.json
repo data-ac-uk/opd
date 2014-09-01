@@ -74,6 +74,11 @@
         "term": "owl:sameAs",
         "label": "is the same as",
         "render": "uri"
+      },
+      {
+        "term": "foaf:based_near",
+        "label": "Located",
+        "render": "map"
       }
     ]
     

@@ -14,7 +14,16 @@ class org {
 		$datadir = "../var/";
 	
 		$info = "{$datadir}orgs/{$id}/org.json";
+		$orgpage = "{$datadir}orgs/{$id}/org.html";
 		
+		if(file_exists($orgpage) && fileatime($orgpage)<strtotime("-1 week")){
+			$f3->set('html_title', $org['org_name'] );
+			$f3->set('content','content.html');
+			$f3->set('html_content', file_get_contents($orgpage));
+			print Template::instance()->render( "page-template.html" );
+			return; 
+		}
+			
 		if(!isset($id) || !strlen($id)){
 			$f3->error(404);
 		}
@@ -102,16 +111,99 @@ class org {
 		}
 			
 		
+		$datasetsmap = array(
+			array( 
+				"name"=>"Facilities",
+				"subjects"=>array("http://purl.org/openorg/theme/facilities"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"Equipment",
+				"subjects"=>array("http://purl.org/openorg/theme/equipment"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"Members",
+				"subjects"=>array("http://purl.org/openorg/theme/members"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"Events",
+				"subjects"=>array("http://purl.org/openorg/theme/events"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"Places",
+				"subjects"=>array("http://purl.org/openorg/theme/places"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"News",
+				"subjects"=>array("http://purl.org/openorg/theme/news"),
+				"verify"=>array(),
+			),
+			array( 
+				"name"=>"Notices",
+				"subjects"=>array("http://purl.org/openorg/theme/notices"),
+				"verify"=>array(),
+			),
+		);
+		
+		$allsubs = array();		
+		foreach($datasetsmap as $set){
+			if(isset($set['subjects']) && is_array($set['subjects'])){
+				foreach($set['subjects'] as $sub){
+					$allsubs[] = $sub;
+				}
+			}
+				
+		}
+		
+		$datasets = $topd->datasets( $allsubs );
+		
+		if(count($datasets)){
+
+			$page[]= "<h2>Datasets</h2><div class=\"container\">";
+			$n = 1;
+			foreach( $datasets as $dataset )
+			{
+				if( $dataset->isType( "xtypes:Document-RSS","xtypes:Document-Atom", "xtypes:Document-iCalendar" ) )
+				{
+					$check = "feed";
+				}else{
+					$check = "dataset";
+				}
+				
+					$page []= "<div class='eight columns'><div class='sidebox org_info'>";
+				//	$content []= "<h3>Dataset: ".$bit["name"]." #$n</h3>";
+					$page []= $rv->html_report( $check, $dataset, array('skip'=>true, "id"=>"Dataset Location"));
+					$page []= "</div></div>";
 	
+			}
+			$page[]= "</div>";
+		}
+	
+	
+	
+		$topd->graph->ns( "lyou", "http://purl.org/linkingyou/" );
+		$lyreport = $rv->html_report( "linking-you", $topd->org, array('skip'=>true, "skipid"=>true) );
+		if($lyreport!==false){
+			$page []= "<h2>Linking-you</h2>";
+			$page[] = "<div class=\"org_info links\">";
+			$page []= "<p>These terms link an organisation to web-pages organistations commonly have. </p>";
+			$page []= $lyreport;
+			$page[] = "</div>";
+		}
+
+		
+		file_put_contents( $orgpage, $org_page_html =  join("\n",$page) );
 	
 		$f3->set('html_title', $org['org_name'] );
 		$f3->set('content','content.html');
-		$f3->set('html_content', join("\n",$page) );
+		$f3->set('html_content', $org_page_html );
 		print Template::instance()->render( "page-template.html" );
 		return;
 	
-		
-		print_r($org);
 		
 	}
 

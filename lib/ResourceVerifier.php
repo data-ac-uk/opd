@@ -26,13 +26,19 @@ function html_report( $section_id, $resource, $ops = array() )
 		$ops['skip'] = false;
 	if(!isset($ops['id']))
 		$ops['id'] = false;
+	if(!isset($ops['skipid']))
+		$ops['skipid'] = false;
 	$h = array();
 	$h []= "<table class='rv_data'>";
-	if(!$ops['id']){
-		$h []= "<tr><td colspan='2' class='rv_uri'>".$resource->link()."</td></tr>";
-	}else{
-		$h []= "<tr><th>".$ops['id'].":</th><td class='rv_uri'>".$resource->link()."</td></tr>";
+	if(!$ops['skipid']){
+		if(!$ops['id']){
+			$h []= "<tr><td colspan='2' class='rv_uri'>".$resource->link()."</td></tr>";
+		}else{
+			$h []= "<tr><th>".$ops['id'].":</th><td class='rv_uri'>".$resource->link()."</td></tr>";
+		}
 	}
+
+	$n = 0;
 
 	foreach( $section["terms"] as $term )
 	{
@@ -40,7 +46,7 @@ function html_report( $section_id, $resource, $ops = array() )
 		if( $resource->has( $term["term"] ) )
 		{
 			$h []= "<tr>";
-			$h []= "<th>".$term["label"].":</th>";
+			$h []= "<th title=\"{$term["term"]}\">".$term["label"].":</th>";
 			$h []= "<td>";
 			foreach( $resource->all( $term["term"] ) as $value )
 			{
@@ -51,15 +57,18 @@ function html_report( $section_id, $resource, $ops = array() )
 				}
 			
 				$h []= "<div title='$value'>";
-				$h []= $this->$fn( $graph, $value, $term );
+				$h []= $this->$fn( $graph, $value, $term ,$resource);
 				$h []= $this->verify( $graph, $value, $term );
 				$h []= "</div>";
+				
+				$n++;
+				
 			}
 		}
 		elseif(!$ops['skip'])
 		{
 			$h []= "<tr>";
-			$h []= "<th>".$term["label"].":</th>";
+			$h []= "<th title=\"{$term["term"]}\">".$term["label"].":</th>";
 			$h []= "<td>";
 			$h []= "<span class='rv_null'>NULL</span>";
 			if( @$term["recommended"] )
@@ -72,6 +81,10 @@ function html_report( $section_id, $resource, $ops = array() )
 		}
 	}
 	$h []= "</table>";
+
+	if($ops['skip'] && !$n ){
+		return false;
+	}
 
 	return join( "", $h );
 }
@@ -116,7 +129,7 @@ function html_map( $key, $resource, $ops = array() )
 		return;
 	}
 	
-	$location = $this->location_find_rdf($resource->get($key));
+	$location = $this->location_find_rdf($resource->get($key), $graph);
 	
 	if(!isset($ops['size'])){
 		$ops['size'] = array(400,300);
@@ -126,6 +139,7 @@ function html_map( $key, $resource, $ops = array() )
 <script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=FFF3760C96CE4469E0430C6CA40A1131" ></script>
 <script type="text/javascript">
 	var osMap;
+	var osPos;
 	function osInit(){
 		extent = new OpenLayers.Bounds(0,0,700000,1300000);
 		var options = {
@@ -133,14 +147,15 @@ function html_map( $key, $resource, $ops = array() )
 			resolutions: [500, 200, 100, 50, 25, 10, 5, 4, 2.5, 2, 1]
 		};
 		osMap = new OpenSpace.Map('map',options);
-		var pos = new OpenSpace.MapPoint({$location["loc_easting"]},{$location["loc_northing"]});
-        osMap.setCenter(pos, 0);
+		osPos = new OpenSpace.MapPoint({$location["loc_easting"]},{$location["loc_northing"]});
+        osMap.setCenter(osPos, 0);
 	    var markers = new OpenLayers.Layer.Markers("Markers");
         osMap.addLayer(markers);
-       	var marker = new OpenLayers.Marker(pos);
+       	var marker = new OpenLayers.Marker(osPos);
 	    markers.addMarker(marker);
 	}
 	function zoomMap(zoom){
+		 osMap.setCenter(osPos, 0);
 		 osMap.zoomTo(zoom);
 		 return false;
 	}
@@ -159,8 +174,9 @@ END;
 
 }
 
-function location_find_rdf($loc){
-	$g = new Graphite();
+function location_find_rdf($loc, $g = NULL){
+	if($g===NULL)
+		$g = new Graphite();
 	$g->load( (string)$loc );
 	return $this->location_find($g->resource((string)$loc));
 }
@@ -170,7 +186,7 @@ function location_find($loc){
 	require_once("../lib/phpLocation/phpLocation.php");
 	
 	$location = array("	loc_uri"=>(string)$loc);
-	if( $loc->has( "geo:lat" ) )
+	if( $loc->has( "http://www.w3.org/2003/01/geo/wgs84_pos#lat" ) )
 	{
 		$location["loc_lat"] = $loc->getLiteral( "geo:lat" );
 		$location["loc_long"] = $loc->getLiteral( "geo:long" );
@@ -203,7 +219,7 @@ function location_find($loc){
 }
 
 
-function render_default( $graph, $value, $term )
+function render_default( $graph, $value, $term , $resource)
 {
 	return $value;	
 }
@@ -213,12 +229,18 @@ function render_problem( $msg )
 	return " <span class='rv_message'>WARNING: $msg</span>";
 }
 
-function render_uri( $graph, $value, $term )
+function render_uri( $graph, $value, $term, $resource )
 {
 	return $graph->shrinkURI( $value );
 }
+
+function render_map( $graph, $value, $term, $resource )
+{
+	return $this->html_map( "foaf:based_near", $resource);
+}
 	
-function render_uri_values( $graph, $value, $term )
+	
+function render_uri_values( $graph, $value, $term, $resource )
 {
 	$svalue = $graph->shrinkURI( $value );
 
@@ -230,17 +252,17 @@ function render_uri_values( $graph, $value, $term )
 	return $svalue;
 }
 
-function render_img( $graph, $value, $term )
+function render_img( $graph, $value, $term, $resource )
 {
 	return "<img src='$value' />";
 }
 
-function render_link( $graph, $value, $term )
+function render_link( $graph, $value, $term, $resource )
 {
 	return $value->link();
 }
 
-function render_pretty_link( $graph, $value, $term )
+function render_pretty_link( $graph, $value, $term, $resource )
 {
 	return $value->prettyLink();
 }

@@ -1,3 +1,7 @@
+h1{
+	clear:both;
+}
+
 h2{
 	margin: 10px 0px 4px;
 	padding: 0px;
@@ -71,6 +75,7 @@ code.block {
 .datasets li img {
 	max-height: 40px;
 	max-width: 150px;
+	vertical-align: middle;
 }
 
 
@@ -94,6 +99,10 @@ code.block {
 
 img {
 	max-width: 95%;
+}
+
+.org_info.links th{
+	text-align: right !important;
 }
 
 .org_info th {
