@@ -91,7 +91,7 @@ foreach($opdlist as $opdurl){
 
 	file_put_contents("{$PWD}/var/orgs/{$orgin['org_id']}/org.json",json_encode($orgin));
 	file_put_contents("{$PWD}/var/orgs/{$orgin['org_id']}/org.ttl",$graph->serialize( 'Turtle' ));
-	
+	unlink("{$PWD}/var/orgs/{$orgin['org_id']}/org.html");
 	//exit();
 
 }
