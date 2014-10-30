@@ -175,6 +175,7 @@ END;
 }
 
 function location_find_rdf($loc, $g = NULL){
+
 	if($g===NULL)
 		$g = new Graphite();
 	$g->load( (string)$loc );
@@ -185,28 +186,29 @@ function location_find($loc){
 	
 	require_once("../lib/phpLocation/phpLocation.php");
 	
-	$location = array("	loc_uri"=>(string)$loc);
+	$location = array("loc_uri"=>(string)$loc);
 	if( $loc->has( "http://www.w3.org/2003/01/geo/wgs84_pos#lat" ) )
 	{
 		$location["loc_lat"] = $loc->getLiteral( "geo:lat" );
 		$location["loc_long"] = $loc->getLiteral( "geo:long" );
+	}else{
+		return false;
 	}
+	
 	if( $loc->has( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting" ) )
 	{
 		$location["loc_easting"] = (int)$loc->getLiteral( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting" );
 		$location["loc_northing"] = (int)$loc->getLiteral( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing" );
-	}
-	
-	$pos = new phpLocation();
-	$pos->lat = $location["loc_lat"];
-	$pos->lon = $location["loc_long"];
-	$pos->toGrid();
-	
-	if((isset($location["loc_lat"]) && isset($location["loc_long"])) && ( !isset($location["loc_easting"]) || !isset($location["loc_northing"]) )){
-		
+	}else{
+		$pos = new phpLocation();
+		$pos->lat = $location["loc_lat"];
+		$pos->lon = $location["loc_long"];
+		$pos->toGrid();
+			
 		$location["loc_easting"] = (int)$pos->east;
 		$location["loc_northing"] = (int)$pos->north;
 	}
+	
 	
 
 	$location["loc_latlng"] = $pos->formatlocation($location["loc_lat"],'dMS','lat')." ".$pos->formatlocation($location["loc_long"],'dMS','long');
