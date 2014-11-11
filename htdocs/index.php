@@ -2,12 +2,27 @@
 date_default_timezone_set( "Europe/London" );
 $f3=require('../f3/lib/base.php');
 
+if($_SERVER['HTTP_HOST']!='opd.data.ac.uk')
+	$f3->set('DEBUG',1);
+else{
+	$f3->set('ONERROR',
+	    function($f3) {
+	        // custom error handler code goes here
+	        // use this if you want to display errors in a
+	        // format consistent with your site's theme
+			echo "<h1>{$f3->get('ERROR.status')}</h1>\n";
+			if($f3->get('ERROR.code')==404)
+				echo $f3->get('ERROR.text');
+	    }
+	);
+}
 $f3->set('AUTOLOAD',"app/");
+$f3->set('UI',"ui/");
 
 //if ((float)PCRE_VERSION<7.9)
 //	trigger_error('PCRE version is out of date');
 
-$f3->config('config.ini');
+
 
 $f3->route('GET /',
 	function($f3) { 
