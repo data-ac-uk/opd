@@ -106,6 +106,8 @@ foreach($dataset as $d){
 
 file_put_contents("{$PWD}/var/autoopds.json",json_encode($newkeys));
 
+$exec = "chmod -R a+rwX ".escapeshellarg("{$PWD}/var");
+`$exec`;
 
 function _array_sort_key($a, $b)
 {
