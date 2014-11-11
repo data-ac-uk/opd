@@ -186,6 +186,8 @@ function location_find($loc){
 	
 	require_once("../lib/phpLocation/phpLocation.php");
 	
+	$pos = new phpLocation();
+	
 	$location = array("loc_uri"=>(string)$loc);
 	if( $loc->has( "http://www.w3.org/2003/01/geo/wgs84_pos#lat" ) )
 	{
@@ -200,7 +202,6 @@ function location_find($loc){
 		$location["loc_easting"] = (int)$loc->getLiteral( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting" );
 		$location["loc_northing"] = (int)$loc->getLiteral( "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing" );
 	}else{
-		$pos = new phpLocation();
 		$pos->lat = $location["loc_lat"];
 		$pos->lon = $location["loc_long"];
 		$pos->toGrid();
