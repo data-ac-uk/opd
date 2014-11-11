@@ -2,8 +2,6 @@
 date_default_timezone_set( "Europe/London" );
 $f3=require('../f3/lib/base.php');
 
-$f3->set('DEBUG',1);
-
 $f3->set('AUTOLOAD',"app/");
 
 //if ((float)PCRE_VERSION<7.9)
