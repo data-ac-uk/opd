@@ -3,7 +3,7 @@
     "terms": [
         { 
           "term": "skos:prefLabel",
-          "label": "Official name",
+          "label": "Official name (Prefered)",
           "expect": "literal",
           "recommended": true
         },{ 

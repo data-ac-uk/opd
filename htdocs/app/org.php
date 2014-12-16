@@ -57,14 +57,14 @@ class org {
 		
 		$page = array();
 
-		$page[] = "<div class=\"opd_note\">The following is information published in this organisation's OPD plublished here: <a href=\"{$org['opd_url']}\">{$org['opd_url']}</a> and was last checked at {$org['opd_crawled']} </div>";
+		$page[] = "<div class=\"opd_note\">The following is information published in this organisation's OPD: <a href=\"{$org['opd_url']}\">{$org['opd_url']}</a> and was last checked at {$org['opd_crawled']} </div>";
 	
-		$page[] = "<div class=\"org_logo\">Offical Logo:<br/>";
+		$page[] = "<div class=\"org_logo\">Official Logo:<br/>";
 		$page[] = "<img src=\"/org/{$org['org_id']}/{$org['org_url_name']}.logo?size=medium\" />";
 		$page[] = "</div>";
 		
 		$page[] = "<div class=\"org_info\">";
-		$page[]= $rv->html_report( "core", $topd->org, array('skip'=>true, "id"=>"Organistaion Id") );
+		$page[]= $rv->html_report( "core", $topd->org, array('skip'=>true, "id"=>"Organisation Id") );
 		$page[] = "</div>";		
 	
 		$socialmedias = array(
