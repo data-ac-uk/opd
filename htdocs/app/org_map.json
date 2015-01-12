@@ -105,7 +105,8 @@
         "values": {
 "http://equipment.data.ac.uk/uniquip": "Uniqup Spreadsheet Standard",
 "http://openorg.ecs.soton.ac.uk/wiki/Facilities_and_Equipment": "Open Org Research Equipment Pattern",
-"http://equipment.data.ac.uk/kitcat-items-json": "Kit-Catalogue JSON"
+"http://equipment.data.ac.uk/kitcat-items-json": "Kit-Catalogue JSON",
+"http://www.openarchives.org/OAI/openarchivesprotocol.html": "OAI-PMH"
         },
         "recommended": true
       }

@@ -116,6 +116,11 @@ $bits = array(
 		"verify"=>array(),
 	),
 	array( 
+		"name"=>"Research Outputs",
+		"subjects"=>array("http://purl.org/openorg/theme/ResearchOutputs"),
+		"verify"=>array(),
+	),
+	array( 
 		"name"=>"Members",
 		"subjects"=>array("http://purl.org/openorg/theme/members"),
 		"verify"=>array(),
@@ -145,6 +150,7 @@ $bits = array(
 
 foreach( $bits as $bit )
 {
+	
 	$datasets = $opd->datasets( $bit["subjects"] );
 	if( ! sizeof($datasets ) ) { continue; }
 	

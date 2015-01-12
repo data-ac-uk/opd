@@ -249,7 +249,7 @@ function render_uri_values( $graph, $value, $term, $resource )
 
 	if( @$term["values"][$svalue] )
 	{
-		return "<em>".$term["values"][$svalue]."</em>";
+		return "<a href=\"$svalue\"><em>".$term["values"][$svalue]."</em></a>";
 	}
 
 	return $svalue;

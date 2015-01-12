@@ -123,6 +123,11 @@ class org {
 				"verify"=>array(),
 			),
 			array( 
+				"name"=>"Research Outputs",
+				"subjects"=>array("http://purl.org/openorg/theme/ResearchOutputs"),
+				"verify"=>array(),
+			),
+			array( 
 				"name"=>"Members",
 				"subjects"=>array("http://purl.org/openorg/theme/members"),
 				"verify"=>array(),
@@ -154,31 +159,33 @@ class org {
 			if(isset($set['subjects']) && is_array($set['subjects'])){
 				foreach($set['subjects'] as $sub){
 					$allsubs[] = $sub;
+					$submap[$sub] = $set['name'];
 				}
 			}
 				
 		}
 		
-		$datasets = $topd->datasets( $allsubs );
+		$datasets = $topd->datasetsBySubject( $allsubs );
 		
 		if(count($datasets)){
 
 			$page[]= "<h2>Datasets</h2><div class=\"container\">";
 			$n = 1;
-			foreach( $datasets as $dataset )
+			foreach( $datasets as $subk=>$datase_subject )
 			{
-				if( $dataset->isType( "xtypes:Document-RSS","xtypes:Document-Atom", "xtypes:Document-iCalendar" ) )
-				{
-					$check = "feed";
-				}else{
-					$check = "dataset";
-				}
+				foreach( $datase_subject as $dataset ){
+					if( $dataset->isType( "xtypes:Document-RSS","xtypes:Document-Atom", "xtypes:Document-iCalendar" ) )
+					{
+						$check = "feed";
+					}else{
+						$check = "dataset";
+					}
 				
-					$page []= "<div class='eight columns'><div class='sidebox org_info'>";
-				//	$content []= "<h3>Dataset: ".$bit["name"]." #$n</h3>";
-					$page []= $rv->html_report( $check, $dataset, array('skip'=>true, "id"=>"Dataset Location"));
-					$page []= "</div></div>";
-	
+						$page []= "<div class='eight columns'><div class='sidebox org_info'>";
+						$page []= "<h3>Dataset: ".$submap[$subk]."</h3>";
+						$page []= $rv->html_report( $check, $dataset, array('skip'=>true, "id"=>"Dataset Location"));
+						$page []= "</div></div>";
+				}	
 			}
 			$page[]= "</div>";
 		}
