@@ -1,0 +1,245 @@
+#!/usr/bin/php
+<?php
+
+$PWD = dirname(__DIR__);
+
+require_once( "{$PWD}/lib/arc2/ARC2.php" );
+require_once( "{$PWD}/lib/Graphite/Graphite.php" );
+
+require_once( "{$PWD}/lib/OPDLib/OrgProfileDocument.php" );
+
+$opdlist = json_decode(file_get_contents("{$PWD}/var/autoopds.json"));
+
+$jsonfile = "{$PWD}/var/exportopds.json";
+$csvfile = "{$PWD}/var/exportopds.csv";
+
+$fp = fopen($csvfile, 'w');
+$fp_doneheaders = false;
+
+$fpj = fopen($jsonfile, 'w');
+
+fwrite($fpj, '{');
+
+foreach($opdlist as $opd){
+	
+	$ret = array();
+	$imap = array('opd_url','org_id','org_uri');
+	
+	
+	
+	foreach($imap as $v){
+		$ret[$v] = (string)$opd->{$v};
+	}
+	
+	try{ 
+		$topd = @new OrgProfileDocument( $ret['opd_url'] , 'url');
+	}
+	catch( OPD_Discover_Exception $e )
+	{
+		continue;
+	}
+	catch( OPD_Load_Exception $e )
+	{
+		continue;
+	}
+	catch( OPD_Parse_Exception $e )
+	{
+	    continue;
+	}
+	catch( Exception $e )
+	{
+		continue;
+	}
+	$graph = $topd->graph;
+	
+
+	$graph->ns( "lyou", "http://purl.org/linkingyou/" );
+	
+	$primaryTopic = (string)$topd->org;
+	
+	$ret['org_name'] = $graph->resource( $primaryTopic )->getString('foaf:name');
+	if(!strlen($ret['org_name']))
+		$ret['org_name'] = $graph->resource( $primaryTopic )->getString('skos:prefLabel');
+	
+	foreach(
+		array(
+			'rdf:type' => array(true,'org_type'),
+			'skos:hiddenLabel' => array(true,'org_hiddenlabel'),
+			'foaf:homepage' => array(false,'org_homepage'),
+			'vcard:hasTelephone' => array(false,'org_phone'),
+			'foaf:phone' => array(false,'org_phone'),
+			'foaf:mbox' => array(false,'org_email'),
+			'foaf:logo' => array(false,'org_logo'),
+			'oo:sparql' => array(false,'org_sparql'),
+			'owl:sameAs' => array(false,'org_sameas')
+		)
+			as $rkk => $rv
+	){
+		if(!isset($ret[$rv[1]])){
+			if($rv[0]){
+				$ret[$rv[1]] = array();
+			}else{
+				$ret[$rv[1]] = "";
+			}
+		}
+	if( $graph->resource( $primaryTopic )->has( $rkk ) )
+	{
+		foreach( $graph->resource( $primaryTopic )->all(  $rkk ) as $value )
+		{
+			if($rv[0]){
+				$ret[$rv[1]][] = (string)$value;
+			}else{
+				$ret[$rv[1]] = (string)$value; 
+			}
+		}
+	}
+	}
+	
+	
+	
+	$socialmedias = array(
+		"https://www.facebook.com/" => array("Facebook","facebook.com/","org_social_facebook"),
+		"https://twitter.com/" => array("Twitter","@","org_social_twitter"),
+		"https://www.flickr.com/" => array("Flickr","flickr.com/","org_social_flickr"),
+		"https://plus.google.com/" => array("Google+","plus.google.com/","org_social_googleplus"),
+		"http://instagram.com/" => array("Instagram","instagram.com/","org_social_instagram"),
+		"http://www.pinterest.com/" => array("Pinterest","pinterest.com/","org_social_pinterest"),
+		"http://vimeo.com/" => array("Vimeo","vimeo.com/","org_social_vimeo"),
+		"http://vk.com/" => array("VK","vk.com/","org_social_vk"),
+		"http://www.weibo.com/" => array("Weibo","weibo.com/","org_social_weibo"),
+		"https://www.youtube.com/" => array("YouTube","youtube.com/","org_social_youtube")
+		
+	);
+	foreach($socialmedias as $ac){
+		$ret[$ac[2]] = "";
+	}
+
+	
+	$accounts = $graph->resource( $primaryTopic )->all( "foaf:account" );
+	if(count($accounts)){
+		foreach( $accounts as $account )
+		{
+			if ( $account->has( "foaf:accountServiceHomepage" ) && isset($socialmedias[$account->get( "foaf:accountServiceHomepage" )->toString()]))
+			{
+				$ac = $socialmedias[$account->get( "foaf:accountServiceHomepage" )->toString()];
+				$ret[$ac[2]]= (string)$account->toString(); // str_replace($account->get( "foaf:accountServiceHomepage" )->toString(),$ac[1],$account->toString());
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	$datasetsmap = array(
+		array( 
+			"name"=>"Facilities",
+			"subjects"=>array("http://purl.org/openorg/theme/facilities"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Equipment",
+			"subjects"=>array("http://purl.org/openorg/theme/equipment"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Research Outputs",
+			"subjects"=>array("http://purl.org/openorg/theme/ResearchOutputs"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Members",
+			"subjects"=>array("http://purl.org/openorg/theme/members"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Events",
+			"subjects"=>array("http://purl.org/openorg/theme/events"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Places",
+			"subjects"=>array("http://purl.org/openorg/theme/places"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"News",
+			"subjects"=>array("http://purl.org/openorg/theme/news"),
+			"verify"=>array(),
+		),
+		array( 
+			"name"=>"Notices",
+			"subjects"=>array("http://purl.org/openorg/theme/notices"),
+			"verify"=>array(),
+		),
+	);
+	
+	
+	foreach($datasetsmap as $map){
+		$ret["org_datasets_".strtolower(str_replace(" ","_",$map['name']))] = array();
+	}
+	
+	$allsubs = array();		
+	foreach($datasetsmap as $set){
+		if(isset($set['subjects']) && is_array($set['subjects'])){
+			foreach($set['subjects'] as $sub){
+				$allsubs[] = $sub;
+				$submap[$sub] = $set['name'];
+			}
+		}
+			
+	}
+	
+	$datasets = $topd->datasetsBySubject( $allsubs );
+	
+	if(count($datasets)){
+
+		foreach( $datasets as $subk=>$datase_subject )
+		{
+			foreach( $datase_subject as $dataset ){
+				$k = "org_datasets_".strtolower(str_replace(" ","_",$submap[$subk]));
+				$v = $dataset->toString();
+				if(!in_array($v, $ret[$k]))
+					$ret[$k][] = $dataset->toString();
+			}	
+		}
+
+	}
+	
+	$liy = json_decode(file_get_contents("{$PWD}/htdocs/opd_verify.json"),true);
+	foreach($liy["linking-you"]['terms'] as $terms){
+		$k = "org_".strtolower(str_replace(array("-"," ",":"),"_",$terms['term']));
+		if($graph->resource( $primaryTopic )->has($terms['term'])){
+			$ret[$k] = $graph->resource( $primaryTopic )->getString($terms['term']);
+		}else{
+			$ret[$k] = "";
+		}
+	}
+	
+	$csvline = array();
+	foreach($ret as $k=>$v){
+		if(is_array($v)){
+			$csvline[$k] = join(";",$v);
+		}else{
+			$csvline[$k] = $v;
+		}
+	}
+	
+	if(!$fp_doneheaders){
+	 	fputcsv($fp, array_keys($csvline));
+		$fp_doneheaders = true;
+	}else{
+		fwrite($fpj,",");
+	}
+	fputcsv($fp, $csvline);
+
+
+
+	fwrite($fpj, "\"{$ret['org_id']}\":".json_encode($ret));
+
+}
+
+fwrite($fpj, '}');
+	
+fclose($fpj);
+fclose($fp);
