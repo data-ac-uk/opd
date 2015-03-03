@@ -37,10 +37,26 @@
 <h2>Organisations with an auto-discoverable OPD</h2>
 <ul class='datasets'>
 	<F3:repeat group="{{ @opds }}" value="{{ @org }}">
-		<li><a href='/org/{{ @org["org_id"] }}/{{ @org["org_url_name"] }}.html' title='{{ @org["org_name"] }}'><img src='/org/{{ @org["org_id"] }}/{{ @org["org_url_name"] }}.logo?size=small'/></a></li>
+		<check if="{{ strlen( @org['org_logo'] ) == 0 }}">
+		    <false>
+				<li><a href='/org/{{ @org["org_id"] }}/{{ @org["org_url_name"] }}.html' title='{{ @org["org_name"] }}'><img src='/org/{{ @org["org_id"] }}/{{ @org["org_url_name"] }}.logo?size=small'/></a></li>
+			</false>
+		</check>
+		
 	</F3:repeat>
+	<br/>
+	<F3:repeat group="{{ @opds }}" value="{{ @org }}">
+		<check if="{{ strlen( @org['org_logo'] ) != 0 }}">
+		    <false>
+				<li><a href='/org/{{ @org["org_id"] }}/{{ @org["org_url_name"] }}.html' title='{{ @org["org_name"] }}'>{{ @org["org_name"] }}</a></li>
+			</false>
+		</check>
+		
+	</F3:repeat>
+	
 </ul>
-        
+	
+		
 </div>
 
 

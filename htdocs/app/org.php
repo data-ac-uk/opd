@@ -59,13 +59,15 @@ class org {
 
 		$page[] = "<div class=\"opd_note\">The following is information published in this organisation's OPD: <a href=\"{$org['opd_url']}\">{$org['opd_url']}</a> and was last checked at {$org['opd_crawled']} </div>";
 	
-		$page[] = "<div class=\"org_logo\">Official Logo:<br/>";
-		$page[] = "<img src=\"/org/{$org['org_id']}/{$org['org_url_name']}.logo?size=medium\" />";
-		$page[] = "</div>";
-		
-		$page[] = "<div class=\"org_info\">";
-		$page[]= $rv->html_report( "core", $topd->org, array('skip'=>true, "id"=>"Organisation Id") );
-		$page[] = "</div>";		
+		if(strlen($org['org_logo'])){
+			$page[] = "<div class=\"org_logo\">Official Logo:<br/>";
+			$page[] = "<img src=\"/org/{$org['org_id']}/{$org['org_url_name']}.logo?size=medium\" />";
+			$page[] = "</div>";
+		}
+			
+			$page[] = "<div class=\"org_info\">";
+			$page[]= $rv->html_report( "core", $topd->org, array('skip'=>true, "id"=>"Organisation Id") );
+			$page[] = "</div>";		
 	
 		$socialmedias = array(
 			"https://www.facebook.com/" => array("Facebook","facebook.com/"),
@@ -217,6 +219,9 @@ class org {
 	function getLogo( )
 	{
 		
+		$cacheage = 24*3600*14; // 1Day
+		
+		
 		$f3=Base::instance();
 			
 		$name = $f3->get( "PARAMS.name" );
@@ -242,7 +247,7 @@ class org {
 //		$pic_target = "{$datadir}orgs/{$id}/logo-o";
 		
 		
-		if(!file_exists($pic_org) || filemtime($pic_org) < strtotime("-2 Weeks") ){
+		if(!file_exists($pic_org) || filemtime($pic_org) < (time()-$cacheage) ){
 			@`rm -f {$pic_sub}*`;
 		}
 		
@@ -290,6 +295,16 @@ class org {
 		}
 		
 		if(file_exists($goimage)){
+			
+			header('max-age: '.$cacheage);
+			header('Cache-Control: public');
+			header('Pragma: cache');
+
+			header('Date: '.gmdate('D, d M Y H:i:s \G\M\T', time()));
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s \G\M\T', filemtime($goimage)));
+			header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + $cacheage));
+	
+			
 			header('Content-Type: image/png');
 			readfile($goimage);
 			exit();
