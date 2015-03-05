@@ -285,12 +285,12 @@ class org {
 		
 	
 		if(!file_exists($pic_full)){
-			$exec = "convert ".escapeshellarg($pic_org)." ".escapeshellarg("png:{$pic_full}");
+			$exec = "/usr/bin/convert ".escapeshellarg($pic_org)." ".escapeshellarg("png:{$pic_full}");
 			@exec($exec);
 		}
 		
 		if(isset($_REQUEST['size']) && in_array($_REQUEST['size'],array_keys($sizes))){
-			$exec = "convert ".escapeshellarg($pic_org)." -resize ".escapeshellarg($sizes[$_REQUEST['size']])." ".escapeshellarg("png:{$pic_size}");
+			$exec = "/usr/bin/convert ".escapeshellarg($pic_org)." -resize ".escapeshellarg($sizes[$_REQUEST['size']])." ".escapeshellarg("png:{$pic_size}");
 			@exec($exec);
 		}
 		
