@@ -2,6 +2,12 @@
 date_default_timezone_set( "Europe/London" );
 $f3=require('../f3/lib/base.php');
 
+if(substr($_SERVER['HTTP_HOST'],0,4)=='www.'){
+	header("HTTP/1.1 301 Moved Permanently"); 
+	header("Location: http".( (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '' )."://".substr($_SERVER['HTTP_HOST'],4)."/"); 
+	exit();
+}
+
 if($_SERVER['HTTP_HOST']!='opd.data.ac.uk')
 	$f3->set('DEBUG',1);
 else{
