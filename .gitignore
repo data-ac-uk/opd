@@ -1,7 +1,2 @@
-lib/arc2/
-lib/OPDLib/
-lib/Graphite/
 htdocs/tmp/
-htdocs/lib/CodeMirror/
 var/*
-lib/phpLocation/
