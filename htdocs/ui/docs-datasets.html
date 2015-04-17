@@ -19,9 +19,9 @@
     dcterms:conformsTo &lt;<span class='opd-var'>CONFIRMS-URL</span>&gt; ;
     dcterms:license &lt;<span class='opd-var'>LICENSE-URL</span>&gt; .</code>
 
-<h3>Recommended/example URI's'</h3>
-
-<h4>dcterms:subject</h4>
+<h3>Recommended/example URI's' for different datasets</h3>
+<h4>Equipment/Facility Datasets</h4>
+<h5>dcterms:subject</h5>
 
 <p>This descibes what the dataset is about with some example url:
 
@@ -33,7 +33,7 @@
 
 </p>
 
-<h4>dcterms:conformsTo</h4>
+<h5>dcterms:conformsTo</h5>
 
 <p>This descibes what the file format of the dataset is:
 
@@ -45,9 +45,31 @@
 </ul>
 </p>
 
+<h5>An example equipment dataset</h5>
+
+
+<code class='block'>&lt;http://www.bbk.ac.uk/opd/equipment.xls&gt;
+    oo:organization &lt;http://id.learning-provider.data.ac.uk/ukprn/10007760&gt; ;
+    oo:corrections &lt;mailto:t.daviter@mail.cryst.bbk.ac.uk&gt; ;
+    oo:contact &lt;mailto:a.tribe@bbk.ac.uk&gt; ;
+    dcterms:subject &lt;http://purl.org/openorg/theme/facilities&gt; ;
+    dcterms:conformsTo &lt;http://equipment.data.ac.uk/uniquip&gt; ;
+    dcterms:license &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; .</code>
+
+<h4>Reasearch Outputs Datasets</h4>
+
+<p>Research output datasets use &lt;http://purl.org/openorg/theme/ResearchOutputs&gt; to descibe that they are a reasearch outputs dataset. and the most common format (dcterms:conformsTo) is a OAI-PMH endpoint with the uri &lt;http://www.openarchives.org/OAI/openarchivesprotocol.html&gt; For example:</p>
+<code class='block'>&lt;http://eprints.soton.ac.uk/cgi/oai2&gt;
+    dcterms:conformsTo &lt;http://www.openarchives.org/OAI/openarchivesprotocol.html&gt; ;
+    dcterms:license &lt;http://www.nationalarchives.gov.uk/doc/open-government-licence/&gt; ;
+    dcterms:subject &lt;http://purl.org/openorg/theme/ResearchOutputs&gt; ;
+    oo:contact &lt;mailto:eprints@soton.ac.uk&gt; ;
+    oo:corrections &lt;mailto:eprints@soton.ac.uk&gt; ;
+    oo:organization &lt;http://id.southampton.ac.uk/&gt; . </code> 
+
 <h4>dcterms:license</h4>
 
-<p>This descibes what the license for the dataset:
+<p>This descibes the license for the dataset:
 
 <ul class="bullet-list">
 	<li>OGL - The (UK) Open Government License for Public Sector Information: http://www.nationalarchives.gov.uk/doc/open-government-licence/</li>
