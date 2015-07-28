@@ -242,6 +242,19 @@ function render_map( $graph, $value, $term, $resource )
 	return $this->html_map( "foaf:based_near", $resource);
 }
 	
+function render_suborg( $graph, $value, $term, $resource )
+{
+	$ret = "";
+	if(strlen($value)){
+		if($graph->resource($value)->has('foaf:homepage')){
+			 $ret .= "<a href=\"".(string) $graph->resource($value)->get('foaf:homepage')."\">{$value}</a> (<a href=\"/checker?homepage=".urlencode($graph->resource($value)->get('foaf:homepage'))."\">Check for an OPD</a>)";
+		}else{
+			$ret .= (string)$value;
+		}
+	}
+	
+	return $ret;
+}
 	
 function render_uri_values( $graph, $value, $term, $resource )
 {

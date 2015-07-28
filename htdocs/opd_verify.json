@@ -5,6 +5,7 @@
         "term": "rdf:type",
         "label": "Type",
         "values": {
+			"org:OrganizationalCollaboration": "Organizational Collaboration (eg Consortium)",
   "org:FormalOrganization": "Formal Organisation (charity, business etc.)",
   "aiiso:Institution": "An Academic Institution",
   "foaf:Organization": "An Organisation (general)"
@@ -79,7 +80,23 @@
         "term": "foaf:based_near",
         "label": "Located",
         "render": "map"
+      },
+      {
+        "term": "org:hasSubOrganization",
+        "label": "Has SubOrganisation",
+        "render": "suborg"
+      },
+      {
+        "term": "org:subOrganizationOf",
+        "label": "Is SubOrganisation of",
+        "render": "suborg"
+      },
+      {
+        "term": "org:hasMember",
+        "label": "Has Member",
+        "render": "suborg"
       }
+	  
     ]
     
   },

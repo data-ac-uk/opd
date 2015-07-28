@@ -62,7 +62,21 @@
         "term": "owl:sameAs",
         "label": "Is the same as",
         "render": "uri"
-      }
+      },
+	        {
+	          "term": "org:hasSubOrganization",
+	          "label": "Has SubOrganisation",
+	          "render": "suborg"
+	        },{
+        "term": "org:subOrganizationOf",
+        "label": "Is SubOrganisation of",
+        "render": "suborg"
+      },
+	        {
+	          "term": "org:hasMember",
+	          "label": "Has Member",
+	          "render": "suborg"
+	        }
     ]
     
   },

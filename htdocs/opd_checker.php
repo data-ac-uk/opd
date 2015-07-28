@@ -23,6 +23,10 @@ if( @!$_GET["opd"] && @!$_GET["homepage"] && @!$_POST["opd_paste"])
 }
 
 $homepage_url = @$_GET["homepage"];
+if (preg_match("#https?://#",$homepage_url) === 0) {
+    $homepage_url = 'http://'.$homepage_url;
+}
+
 $opd_url = @$_GET["opd"];
 $opd_paste = @$_POST["opd_paste"];
 
