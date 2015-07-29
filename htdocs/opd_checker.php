@@ -87,8 +87,8 @@ $content []= "<p>OPD Loaded OK!</p>";
 #################### #################### ####################
 # CORE PROFILE
 #################### #################### ####################
-
-$content []= "<p>OPD Located: <a href=\"{$opd->opd_url}\">{$opd->opd_url}</a></p>";
+if(isset($opd->opd_url))
+	$content []= "<p>OPD Located: <a href=\"{$opd->opd_url}\">{$opd->opd_url}</a></p>";
 
 $content []= "<p>Organisation self-assigned URI is $opd->org</p>";
 
