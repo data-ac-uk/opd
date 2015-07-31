@@ -163,7 +163,7 @@ function html_map( $key, $resource, $ops = array() )
 </script>
 <div class="rv_mapbox">
 <div id="map" style="background: #a0cffe;"></div>
-<div class="loc">long/lat: {$location["loc_latlng"]} ( {$location["loc_lat"]}, {$location["loc_lat"]}) OS Grid Reference: {$location["loc_grid"]} ({$location["loc_easting"]},{$location["loc_northing"]})</div>
+<div class="loc">long/lat: {$location["loc_latlng"]} ( {$location["loc_lat"]}, {$location["loc_long"]}) OS Grid Reference: {$location["loc_grid"]} ({$location["loc_easting"]},{$location["loc_northing"]})</div>
 <nav>Zoom to: <a onclick="zoomMap(0);">Country</a> <a onclick="zoomMap(1);">County</a> <a onclick="zoomMap(3);">District</a> <a onclick="zoomMap(5);">City Area</a> <a onclick="zoomMap(7);">City</a> <a onclick="zoomMap(9);">Street</a> </nav>
 </div>
 		
