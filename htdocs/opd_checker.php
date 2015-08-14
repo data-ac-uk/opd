@@ -93,14 +93,6 @@ catch( Exception $e )
 	exit;
 }
 
-function trackevent($task, $taskval,$res){
-	return "<script>
-setTimeout(function() {
-	ga('send', 'event', 'opd','{$task}', '{$taskval} - {$res}');
-}, 1000);
-</script>";
-}
-
 $content []= "<p>OPD Loaded OK!</p>";
 
 #################### #################### ####################
