@@ -38,21 +38,31 @@ try
 	{
 		$content []= "<p>Attempting to parse OPD pasted form.</p>";
 		$opd = OrgProfileDocument::from_string( $opd_paste );
+		$task = 'option3';
+		$taskval = 'pasted';
 	}
 	elseif( @$homepage_url )
 	{
 		$content []= "<p>Attempting to autodiscover OPD from <a href='$homepage_url'>$homepage_url</a></p>";
 		$opd = OrgProfileDocument::discover( $homepage_url );
+		$task = 'option1';
+		$taskval = $homepage_url;
 	}
 	else
 	{
 		$content []= "<p>Attempting to load OPD from <a href='$opd_url'>$opd_url</a></p>";
 		$opd = new OrgProfileDocument( $opd_url );
+		$task = 'option2';
+		$taskval = $opd_url;
 	}
 }
+
+
+
 catch( OPD_Discover_Exception $e )
 {
 	$content[] = "<h2>Failed to discover OPD</h2><p>".$e->getMessage()."</p>";
+	$content[] = trackevent($task, $taskval,'discover');
 	$f3->set('results', join( "", $content ) );
 	serve_results();
 	exit;
@@ -60,6 +70,7 @@ catch( OPD_Discover_Exception $e )
 catch( OPD_Load_Exception $e )
 {
 	$content[] = "<h2>Failed to load OPD</h2><p>".$e->getMessage()."</p>";
+	$content[] = trackevent($task, $taskval,'load');
 	$f3->set('results', join( "", $content ) );
 	serve_results();
 	exit;
@@ -68,6 +79,7 @@ catch( OPD_Parse_Exception $e )
 {
 	$content[] = "<h2>Failed to parse OPD</h2><p>".$e->getMessage()."</p>";
 	$content[] = "<div class='code'>".htmlspecialchars(htmlspecialchars( $e->document ))."</div>";
+	$content[] = trackevent($task, $taskval,'parse');
 	$f3->set('results', join( "", $content ) );
 	serve_results();
 	exit;
@@ -75,12 +87,19 @@ catch( OPD_Parse_Exception $e )
 catch( Exception $e ) 
 {
 	$content[] = "<h2>Error</h2><p>".$e->getMessage()."</p>";
+	$content[] = trackevent($task, $taskval,'err');
 	$f3->set('results', join( "", $content ) );
 	serve_results();
 	exit;
 }
 
-
+function trackevent($task, $taskval,$res){
+	return "<script>
+setTimeout(function() {
+	ga('send', 'event', 'opd','{$task}', '{$taskval} - {$res}');
+}, 1000);
+</script>";
+}
 
 $content []= "<p>OPD Loaded OK!</p>";
 
@@ -221,7 +240,7 @@ $content []= "<h2>Linking-you</h2>";
 $content []= "<p>These terms link an organisation to web-pages organistations commonly have. See <a href='http://purl.org/linkingyou/'>http://purl.org/linkingyou/</a> for more information on these terms.</p>";
 $content []= $rv->html_report( "linking-you", $opd->org );
 
-
+$content[] = trackevent($task, $taskval,'ok');
 
 
 
@@ -245,4 +264,11 @@ function serve_results()
 	print Template::instance()->render( "page-template.html" );
 }
 
+function trackevent($task, $taskval,$res){
+	return "<script>
+setTimeout(function() {
+	ga('send', 'event', 'opd','{$task}', '{$taskval} - {$res}');
+}, 1000);
+</script>";
+}
  
