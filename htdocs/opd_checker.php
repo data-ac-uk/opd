@@ -32,28 +32,33 @@ $opd_paste = @$_POST["opd_paste"];
 
 $content = array();
 
+
 try 
 {
 	if( @$opd_paste )
 	{
-		$content []= "<p>Attempting to parse OPD pasted form.</p>";
-		$opd = OrgProfileDocument::from_string( $opd_paste );
+
 		$task = 'option3';
 		$taskval = 'pasted';
+		$content []= "<p>Attempting to parse OPD pasted form.</p>";
+		$opd = OrgProfileDocument::from_string( $opd_paste );
+
 	}
 	elseif( @$homepage_url )
 	{
-		$content []= "<p>Attempting to autodiscover OPD from <a href='$homepage_url'>$homepage_url</a></p>";
-		$opd = OrgProfileDocument::discover( $homepage_url );
 		$task = 'option1';
 		$taskval = $homepage_url;
+		$content []= "<p>Attempting to autodiscover OPD from <a href='$homepage_url'>$homepage_url</a></p>";
+		$opd = OrgProfileDocument::discover( $homepage_url );
+
 	}
 	else
 	{
-		$content []= "<p>Attempting to load OPD from <a href='$opd_url'>$opd_url</a></p>";
-		$opd = new OrgProfileDocument( $opd_url );
 		$task = 'option2';
 		$taskval = $opd_url;
+		$content []= "<p>Attempting to load OPD from <a href='$opd_url'>$opd_url</a></p>";
+		$opd = new OrgProfileDocument( $opd_url );
+
 	}
 }
 
