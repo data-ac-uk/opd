@@ -206,15 +206,20 @@ foreach($opdlist as $opd){
 
 	}
 	
+	$liyoumap = array();
+	
 	$liy = json_decode(file_get_contents("{$PWD}/htdocs/opd_verify.json"),true);
 	foreach($liy["linking-you"]['terms'] as $terms){
 		$k = "org_".strtolower(str_replace(array("-"," ",":"),"_",$terms['term']));
+		$liyoumap[$k] = $terms['term'];
 		if($graph->resource( $primaryTopic )->has($terms['term'])){
 			$ret[$k] = $graph->resource( $primaryTopic )->getString($terms['term']);
 		}else{
 			$ret[$k] = "";
 		}
 	}
+	
+	file_put_contents("{$PWD}/var/lyoumap.json",json_encode($liyoumap));
 	
 	$csvline = array();
 	foreach($ret as $k=>$v){

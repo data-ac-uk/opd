@@ -37,6 +37,8 @@ $f3->route('GET	/org/@id/@name.html', 'org->getPage' );
 $f3->route('GET	/org/@id/@name.logo', 'org->getLogo' );
 
 
+$f3->route('GET	/dataset/@id/@name.@format', 'dataset->getDatesetItem' );
+$f3->route('GET	/dataset/@id', 'dataset->getDateset' );
 
 $f3->route('GET /docs/feeds',
 	function($f3) { basicPage( $f3, "Documentation: Feeds (RSS, iCal, Atom)", "docs-feeds.html" ); }

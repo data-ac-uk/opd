@@ -10,7 +10,7 @@
 <!-- Basic Page Needs
   ================================================== -->
 <meta charset="utf-8">
-      <title>{{ @html_title }}</title>
+      <title>{{ !empty(@text_title) ? @text_title : @html_title }}</title>
 <meta name="author" content="Data.ac.uk">
 
 <!-- Mobile Specific Metas
@@ -53,7 +53,7 @@
         <li class=""><a title="Homepage" href="/">Homepage</a></li>
       </ul>
     </nav>
-      <h1>{{ @html_title }}</h1>
+      <h1>{{ @html_title  | raw }}</h1>
 	<F3:include href="{{@content}}"/>  
 	   </div>
 	    </div>
