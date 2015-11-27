@@ -79,7 +79,7 @@ class dataset {
 					}
 				}
 			break;
-			case "liningyou":
+			case "linkingyou":
 			
 				$lyoukeys = json_decode(file_get_contents("{$datadir}lyoumap.json"),true);
 				$liy = json_decode(file_get_contents("opd_verify.json"),true);
