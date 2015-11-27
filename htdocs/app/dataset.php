@@ -191,7 +191,7 @@ class dataset {
 				$intro = "<p>A list of an organisations with a $desc</p>";
 				
 			break;
-			case "liningyou":
+			case "linkingyou":
 			
 				$lyoukeys = json_decode(file_get_contents("{$datadir}lyoumap.json"),true);
 				$liy = json_decode(file_get_contents("opd_verify.json"),true);
