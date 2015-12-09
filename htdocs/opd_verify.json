@@ -606,7 +606,98 @@
         "render": "link",
         "expect": "resource",
         "expect_scheme": [ "http", "https" ]
-      }
+    },
+    {
+      "term": "lyou:international-students",
+      "label": "information for international students page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:conference-facilities",
+      "label": "conference facilities page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-funders-policies",
+      "label": "awareness of research regulatory environment page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-policy",
+      "label": "research data policy page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:about-strategy",
+      "label": "research strategy page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-management-planning",
+      "label": "RDM support services page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-repository",
+      "label": "active data storage page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-catalogue",
+      "label": "data registration and discovery mechanism page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-item-identifier-scheme-homepage",
+      "label": "persistent identification for datasets page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-access",
+      "label": "data access procedures page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-publications-repository",
+      "label": "institutional publications repository page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-access",
+      "label": "secure data access page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    },
+    {
+      "term": "lyou:research-data-repository-long-term",
+      "label": "longer term data repository page",
+      "render": "link",
+      "expect": "resource",
+      "expect_scheme": [ "http", "https" ]
+    }
     ]
   },
 
